@@ -1,0 +1,4 @@
+interface:
+  display_name: "GZCU Thesis Spec"
+  short_description: "广州城市理工学院本科论文写作、排版与审查专用规则 Skill"
+  default_prompt: "使用 $gzcu-thesis-spec 检查或生成广州城市理工学院本科毕业论文。"
