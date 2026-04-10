@@ -1,0 +1,25 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Thesis-related temporary files
+*.aux
+*.log
+*.out
+*.toc
+*.pdf
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
