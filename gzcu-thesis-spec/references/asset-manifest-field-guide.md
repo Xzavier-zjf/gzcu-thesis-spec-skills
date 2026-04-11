@@ -124,6 +124,7 @@ Rule:
 Purpose:
 
 - classifies the asset for workflow clarity.
+- currently serves as a semantic label for humans and calling workflows only; `assemble_thesis_assets.py` does not validate or branch on this field today.
 
 Allowed values:
 
@@ -136,6 +137,7 @@ How to fill:
 - use `drawio_figure` for formal diagrams
 - use `ui_screenshot` for browser or system page screenshots
 - use `code_screenshot` for white-background code images
+- treat the value as descriptive metadata, not as a switch that changes script behavior
 
 Common mistakes:
 

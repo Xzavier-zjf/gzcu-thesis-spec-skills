@@ -7,8 +7,15 @@ import argparse
 import re
 from pathlib import Path
 
-import pythoncom
-import win32com.client
+try:
+    import pythoncom
+    import win32com.client
+except ModuleNotFoundError as exc:
+    pythoncom = None
+    win32com = None
+    PYWIN32_IMPORT_ERROR = exc
+else:
+    PYWIN32_IMPORT_ERROR = None
 
 
 BODY_START_PATTERNS = [
@@ -257,11 +264,19 @@ def unlink_existing_table_crossrefs(document, body_paragraph_starts: set[int]) -
             field.Unlink()
 
 
+def ensure_word_automation_ready() -> None:
+    if PYWIN32_IMPORT_ERROR is not None:
+        raise SystemExit(
+            "pywin32 is required for Word cross-reference scripts. "
+            "Install it with: py -m pip install pywin32"
+        )
+
+
 def main() -> int:
     args = parse_args()
     source = Path(args.docx_path).expanduser().resolve()
     if not source.exists():
-        raise FileNotFoundError(source)
+        raise SystemExit(f'DOCX not found: {source}')
 
     if args.save_as:
         output = Path(args.save_as).expanduser().resolve()
@@ -270,11 +285,20 @@ def main() -> int:
     else:
         output = source.with_name(f"{source.stem}.table-crossref{source.suffix}")
 
-    pythoncom.CoInitialize()
-    word = win32com.client.DispatchEx("Word.Application")
-    word.Visible = False
+    ensure_word_automation_ready()
+    word = None
     document = None
+    coinitialized = False
     try:
+        pythoncom.CoInitialize()
+        coinitialized = True
+        try:
+            word = win32com.client.DispatchEx("Word.Application")
+        except Exception as exc:
+            raise SystemExit(
+                "Microsoft Word must be installed on Windows to use this script."
+            ) from exc
+        word.Visible = False
         document = word.Documents.Open(str(source))
         body_paragraph_starts = collect_body_paragraph_starts(document)
         unlink_existing_table_crossrefs(document, body_paragraph_starts)
@@ -295,8 +319,10 @@ def main() -> int:
     finally:
         if document is not None:
             document.Close(SaveChanges=False)
-        word.Quit()
-        pythoncom.CoUninitialize()
+        if word is not None:
+            word.Quit()
+        if coinitialized:
+            pythoncom.CoUninitialize()
 
 
 if __name__ == "__main__":

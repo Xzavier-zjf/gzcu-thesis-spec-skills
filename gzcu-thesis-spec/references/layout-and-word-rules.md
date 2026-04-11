@@ -78,7 +78,7 @@ Use this file when the task involves Word layout, final DOCX preparation, or for
 - Table titles go above the table.
 - Figure titles, table titles, and table text use `宋体五号`.
 - Number figures and tables by chapter, such as `图1-1` and `表1-1`.
-- Body references to figures and tables keep body formatting, not caption formatting. In practice, `图X-X` and `表X-X` inside正文 must stay at `小四` (`12.0` pt) rather than inheriting the caption's `五号`.
+- Body references to figures and tables keep body formatting, not caption formatting. In practice, `图X-X` and `表X-X` in the body text must stay at `小四` (`12.0` pt) rather than inheriting the caption's `五号`.
 - Prefer Word cross-references for figure references in the body so `Ctrl + 点击` jumps to the matching figure caption.
 - If the manuscript is delivered as `.docx`, figure references such as `如图X-X所示` should be implemented as clickable cross-references rather than left as plain text where feasible.
 - Prefer Word cross-references for table references in the body so `Ctrl + 点击` jumps to the matching table caption.

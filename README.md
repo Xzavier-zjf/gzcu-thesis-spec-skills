@@ -115,8 +115,16 @@ Use this skill when Codex must:
 ### Installation & Requirements
 
 - **Python 3.x**: Required for running automation scripts
-- **python-docx**: Python library for Word document manipulation
+- **python-docx**: Python library for DOCX editing and asset insertion workflows
+- **pywin32**: Required by `build_reference_crossrefs.py`, `build_figure_crossrefs.py`, and `build_table_crossrefs.py` for Word COM automation
+- **Microsoft Word on Windows**: Required to run the three cross-reference scripts
 - **Codex Environment**: This skill is designed for use within the Codex AI assistant framework
+
+Minimum install command:
+
+```bash
+py -m pip install python-docx pywin32
+```
 
 ### License
 
@@ -234,8 +242,16 @@ gzcu-thesis-spec/
 ### 安装与要求
 
 - **Python 3.x**：运行自动化脚本所需
-- **python-docx**：用于 Word 文档操作的 Python 库
+- **python-docx**：用于 DOCX 编辑与素材插入的 Python 库
+- **pywin32**：`build_reference_crossrefs.py`、`build_figure_crossrefs.py`、`build_table_crossrefs.py` 执行 Word COM 自动化所需
+- **Windows 上的 Microsoft Word**：运行上述三个交叉引用脚本时必需
 - **Codex 环境**：本技能专为 Codex AI 助手框架设计
+
+最小安装命令：
+
+```bash
+py -m pip install python-docx pywin32
+```
 
 ### 主要规则摘要
 

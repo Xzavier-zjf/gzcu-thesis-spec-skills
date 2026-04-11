@@ -13,7 +13,7 @@ For browser-based evidence collection such as page screenshots, UI flow verifica
 For batch asset insertion, figure-paragraph spacing normalization, and clickable reference, figure-caption, or table-caption cross-references inside Word, use this skill's local `scripts/` helpers together with `$doc`.
 This skill relies on short skill-name resolution and is compatible with Codex or Claude Code environments that have the referenced skills installed. It does not depend on machine-specific absolute skill paths.
 
-This skill is school-specific. Keep general thesis generation behavior in [`thesis-content-formatter`], but let this skill override it whenever the school rules are stricter or more explicit.
+This skill is school-specific and should override generic thesis-generation behavior whenever the school rules are stricter or more explicit.
 
 ## Quick Loading Guide
 

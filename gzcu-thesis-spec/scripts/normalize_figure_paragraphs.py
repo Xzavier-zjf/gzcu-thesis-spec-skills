@@ -8,8 +8,8 @@ from docx.shared import Pt
 
 
 HEADING_STYLES = {'Heading 1', 'Heading 2', 'Heading 3', '标题 1', '标题 2', '标题 3'}
-FIGURE_CAPTION_RE = r'^图\d+-\d+'
-TABLE_CAPTION_RE = r'^表\d+-\d+'
+FIGURE_CAPTION_RE = re.compile(r'^(图\d+-\d+)')
+TABLE_CAPTION_RE = re.compile(r'^表\d+-\d+')
 
 
 def is_picture_paragraph(paragraph) -> bool:
@@ -30,11 +30,11 @@ def norm(text: str) -> str:
 
 
 def is_figure_caption(paragraph) -> bool:
-    return bool(re.match(FIGURE_CAPTION_RE, norm(paragraph.text)))
+    return bool(FIGURE_CAPTION_RE.match(norm(paragraph.text)))
 
 
 def is_table_caption(paragraph) -> bool:
-    return bool(re.match(TABLE_CAPTION_RE, norm(paragraph.text)))
+    return bool(TABLE_CAPTION_RE.match(norm(paragraph.text)))
 
 
 def is_media_boundary(paragraph) -> bool:
@@ -50,7 +50,7 @@ def is_intro_paragraph(paragraph, figure_no: str) -> bool:
     text = norm(paragraph.text)
     if not text or is_heading_like(paragraph) or is_picture_paragraph(paragraph) or is_table_caption(paragraph):
         return False
-    if figure_no and figure_no in text:
+    if figure_no and re.search(re.escape(figure_no) + r'(?!\d)', text):
         return True
     return bool(re.search(r'如图\d+-\d+所示', text))
 
@@ -77,7 +77,7 @@ def normalize_block(paragraphs, idx: int) -> None:
 
     zero_spacing(caption_paragraph)
     figure_no = None
-    match = re.match(FIGURE_CAPTION_RE, norm(caption_paragraph.text))
+    match = FIGURE_CAPTION_RE.match(norm(caption_paragraph.text))
     if match:
         figure_no = match.group(0)
 
