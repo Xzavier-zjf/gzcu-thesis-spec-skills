@@ -2,10 +2,12 @@
 
 Use this file when the user wants to run the asset assembly and cross-reference scripts directly.
 
+All commands below are written so they can be executed from the repository root. If you `cd gzcu-thesis-spec` first, remove the `gzcu-thesis-spec/` prefix from script and template paths.
+
 ## 1. Assemble figures and screenshots
 
 ```bash
-py scripts/assemble_thesis_assets.py templates/asset-manifest.template.json --save-as thesis.assets.docx
+py gzcu-thesis-spec/scripts/assemble_thesis_assets.py gzcu-thesis-spec/templates/asset-manifest.template.json --save-as thesis.assets.docx
 ```
 
 Use when you need to batch-insert:
@@ -21,7 +23,7 @@ Start from the built-in template if you do not already have a manifest:
 ## 2. Normalize image paragraph spacing
 
 ```bash
-py scripts/normalize_figure_paragraphs.py thesis.assets.docx --save-as thesis.assets.normalized.docx
+py gzcu-thesis-spec/scripts/normalize_figure_paragraphs.py thesis.assets.docx --save-as thesis.assets.normalized.docx
 ```
 
 Use when you need to enforce:
@@ -34,7 +36,7 @@ This script only targets image blocks. It does not convert the whole document to
 ## 3. Build cross-reference citations
 
 ```bash
-py scripts/build_reference_crossrefs.py thesis.assets.normalized.docx --save-as thesis.final.docx
+py gzcu-thesis-spec/scripts/build_reference_crossrefs.py thesis.tbl-crossref.docx --save-as thesis.final.docx
 ```
 
 Use when the document still has plain-text citations like `[1]` and you want Word cross-references that support `Ctrl + 点击` to the corresponding reference item.
@@ -42,7 +44,7 @@ Use when the document still has plain-text citations like `[1]` and you want Wor
 ## 4. Build figure-caption cross-references
 
 ```bash
-py scripts/build_figure_crossrefs.py thesis.assets.normalized.docx --save-as thesis.fig-crossref.docx
+py gzcu-thesis-spec/scripts/build_figure_crossrefs.py thesis.assets.normalized.docx --save-as thesis.fig-crossref.docx
 ```
 
 Use when the document still has plain-text figure references such as `如图4-1所示` and you want `Ctrl + 点击` on `图4-1` to jump to the matching figure caption.
@@ -50,7 +52,7 @@ Use when the document still has plain-text figure references such as `如图4-1�
 ## 5. Build table-caption cross-references
 
 ```bash
-py scripts/build_table_crossrefs.py thesis.assets.normalized.docx --save-as thesis.tbl-crossref.docx
+py gzcu-thesis-spec/scripts/build_table_crossrefs.py thesis.fig-crossref.docx --save-as thesis.tbl-crossref.docx
 ```
 
 Use when the document still has plain-text table references such as `如表4-1所示` or `见表4-2` and you want `Ctrl + 点击` on `表4-1` to jump to the matching table caption.
@@ -60,9 +62,9 @@ Use when the document still has plain-text table references such as `如表4-1�
 1. generate images with `$drawio` and `$playwright-cli`
 2. assemble them into the thesis with `assemble_thesis_assets.py`
 3. normalize picture-block spacing with `normalize_figure_paragraphs.py`
-4. convert body figure references to caption cross-references with `build_figure_crossrefs.py`
-5. convert body table references to caption cross-references with `build_table_crossrefs.py`
-6. convert body citations to cross-references with `build_reference_crossrefs.py`
+4. convert body figure references to caption cross-references with `build_figure_crossrefs.py` using `thesis.assets.normalized.docx` as input
+5. convert body table references to caption cross-references with `build_table_crossrefs.py` using `thesis.fig-crossref.docx` as input
+6. convert body citations to cross-references with `build_reference_crossrefs.py` using `thesis.tbl-crossref.docx` as input
 7. use `$doc` to do the final Word layout review
 
 ## 7. Safety notes

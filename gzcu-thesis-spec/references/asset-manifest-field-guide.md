@@ -20,14 +20,20 @@ Purpose:
 
 How to fill:
 
-- use a real Windows absolute path
+- use a real absolute path for your current platform
 - point to the current working thesis draft, not a folder
 
 Correct example:
 
 ```json
-"docx_path": "D:\\论文\\毕业设计（论文）-提交版.docx"
+"docx_path": "/path/to/thesis.docx"
 ```
+
+Platform notes:
+
+- Windows can use `D:/论文/毕业设计（论文）-提交版.docx` or escaped backslashes such as `D:\\论文\\毕业设计（论文）-提交版.docx`
+- macOS and Linux should use `/Users/...` or `/home/...`
+- this template defaults to forward slashes so the JSON stays portable across platforms
 
 Common mistakes:
 
@@ -144,14 +150,14 @@ Purpose:
 
 How to fill:
 
-- use a real local image path
+- use a real local image path for your current platform
 - prefer `.png` for stable Word insertion
 - confirm the file exists before running the script
 
 Correct example:
 
 ```json
-"asset_path": "D:\\论文素材\\figures\\architecture.png"
+"asset_path": "/path/to/figures/architecture.png"
 ```
 
 Common mistakes:

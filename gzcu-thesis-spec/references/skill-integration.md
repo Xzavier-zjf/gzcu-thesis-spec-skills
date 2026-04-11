@@ -2,6 +2,8 @@
 
 Use this file when the thesis workflow must coordinate `$drawio`, `$playwright-cli`, and `$doc` with `$gzcu-thesis-spec`.
 
+These references use short skill names so the workflow remains portable across Codex and Claude Code environments without host-specific absolute paths.
+
 ## 1. Integration principle
 
 `$gzcu-thesis-spec` is the rule and orchestration layer.

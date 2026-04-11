@@ -31,7 +31,7 @@ TABLE_REF_RE = re.compile(r"表(\d+)-(\d+)")
 REF_BOOKMARK_PREFIX = "gzcu_ref_"
 TABLE_BOOKMARK_PREFIX = "gzcu_tbl_"
 CONTROL_PREFIX_RE = re.compile(r"^[\x00-\x1f]+")
-BODY_TEXT_SIZE = 12.0
+DEFAULT_BODY_TEXT_SIZE = 12.0
 
 
 def parse_args() -> argparse.Namespace:
@@ -56,20 +56,40 @@ def is_heading_like(text: str) -> bool:
     return any(p.search(text) for p in HEADING_LIKE_PATTERNS)
 
 
-def apply_body_crossref_format(result_range) -> None:
-    result_range.Font.Size = BODY_TEXT_SIZE
+def resolve_range_font_size(rng) -> float:
+    size = getattr(rng.Font, "Size", 0) or 0
+    if size:
+        return float(size)
+    if rng.Characters.Count > 0:
+        size = getattr(rng.Characters(1).Font, "Size", 0) or 0
+        if size:
+            return float(size)
+    if getattr(rng, "Paragraphs", None) and rng.Paragraphs.Count > 0:
+        paragraph_range = rng.Paragraphs(1).Range
+        size = getattr(paragraph_range.Font, "Size", 0) or 0
+        if size:
+            return float(size)
+        if paragraph_range.Characters.Count > 0:
+            size = getattr(paragraph_range.Characters(1).Font, "Size", 0) or 0
+            if size:
+                return float(size)
+    return DEFAULT_BODY_TEXT_SIZE
+
+
+def apply_body_crossref_format(result_range, font_size: float) -> None:
+    result_range.Font.Size = font_size
     result_range.Font.Superscript = False
     for i in range(1, result_range.Characters.Count + 1):
         char = result_range.Characters(i)
-        char.Font.Size = BODY_TEXT_SIZE
+        char.Font.Size = font_size
         char.Font.Superscript = False
 
 
-def apply_body_charformat(field, bookmark: str) -> None:
-    field.Code.Characters(1).Font.Size = BODY_TEXT_SIZE
+def apply_body_charformat(field, font_size: float) -> None:
+    field.Code.Characters(1).Font.Size = font_size
     field.Code.Characters(1).Font.Superscript = False
     field.Update()
-    apply_body_crossref_format(field.Result)
+    apply_body_crossref_format(field.Result, font_size)
 
 
 def in_main_body(text: str, started: bool) -> tuple[bool, bool]:
@@ -171,6 +191,7 @@ def replace_table_refs_in_paragraph(document, paragraph, bookmark_map: dict[str,
         rng.End = paragraph.Range.Start + match.end()
         if rng.Fields.Count > 0:
             continue
+        font_size = resolve_range_font_size(rng)
         rng.Text = ""
         document.Fields.Add(
             rng,
@@ -180,7 +201,7 @@ def replace_table_refs_in_paragraph(document, paragraph, bookmark_map: dict[str,
         )
         field = document.Fields(document.Fields.Count)
         field.Update()
-        apply_body_charformat(field, bookmark)
+        apply_body_charformat(field, font_size)
         inserted += 1
     return inserted
 
@@ -219,7 +240,8 @@ def normalize_crossref_field_format(document) -> None:
         if REF_BOOKMARK_PREFIX in code:
             field.Result.Font.Superscript = True
         elif TABLE_BOOKMARK_PREFIX in code:
-            apply_body_charformat(field, code.split()[1])
+            font_size = resolve_range_font_size(field.Result)
+            apply_body_charformat(field, font_size)
 
 
 def unlink_existing_table_crossrefs(document, body_paragraph_starts: set[int]) -> None:

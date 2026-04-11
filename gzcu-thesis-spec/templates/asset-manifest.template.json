@@ -1,11 +1,11 @@
 {
-  "docx_path": "D:\\path\\to\\thesis.docx",
+  "docx_path": "/path/to/thesis.docx",
   "items": [
     {
       "chapter": "第二章 系统设计",
       "anchor_text": "【ANCHOR_ARCH】",
       "asset_type": "drawio_figure",
-      "asset_path": "D:\\path\\to\\figures\\architecture.png",
+      "asset_path": "/path/to/figures/architecture.png",
       "figure_number": "图2-1",
       "caption": "系统总体架构图",
       "intro_text": "系统总体结构如图2-1所示。",
@@ -15,7 +15,7 @@
       "chapter": "第三章 系统实现",
       "anchor_text": "【ANCHOR_UI】",
       "asset_type": "ui_screenshot",
-      "asset_path": "D:\\path\\to\\screenshots\\dashboard.png",
+      "asset_path": "/path/to/screenshots/dashboard.png",
       "figure_number": "图3-2",
       "caption": "系统首页运行截图",
       "intro_text": "系统首页运行效果如图3-2所示。",
@@ -25,7 +25,7 @@
       "chapter": "第三章 系统实现",
       "anchor_text": "【ANCHOR_CODE】",
       "asset_type": "code_screenshot",
-      "asset_path": "D:\\path\\to\\screenshots\\service-code.png",
+      "asset_path": "/path/to/screenshots/service-code.png",
       "figure_number": "图3-3",
       "caption": "核心服务代码截图",
       "intro_text": "核心实现片段如图3-3所示。",

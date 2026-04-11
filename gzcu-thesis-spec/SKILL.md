@@ -7,10 +7,11 @@ description: School-specific thesis writing, formatting, and compliance workflow
 
 Use this skill to apply Guangzhou City University of Technology undergraduate thesis rules as hard constraints, not soft style suggestions.
 
-For `.docx` editing, section breaks, headers, footers, page numbering, TOC refresh, figure/table placement, and final Word inspection, also use [$doc](/Users/zjf20/.codex/skills/doc/SKILL.md).
-For thesis diagrams such as architecture figures, ER diagrams, flowcharts, and research workflow figures, also use [$drawio](/Users/zjf20/.codex/skills/drawio/SKILL.md).
-For browser-based evidence collection such as page screenshots, UI flow verification, and visible runtime proof from the real system, also use [$playwright-cli](/Users/zjf20/.codex/skills/playwright-cli/SKILL.md).
+For `.docx` editing, section breaks, headers, footers, page numbering, TOC refresh, figure/table placement, and final Word inspection, also use `$doc`.
+For thesis diagrams such as architecture figures, ER diagrams, flowcharts, and research workflow figures, also use `$drawio`.
+For browser-based evidence collection such as page screenshots, UI flow verification, and visible runtime proof from the real system, also use `$playwright-cli`.
 For batch asset insertion, figure-paragraph spacing normalization, and clickable reference, figure-caption, or table-caption cross-references inside Word, use this skill's local `scripts/` helpers together with `$doc`.
+This skill relies on short skill-name resolution and is compatible with Codex or Claude Code environments that have the referenced skills installed. It does not depend on machine-specific absolute skill paths.
 
 This skill is school-specific. Keep general thesis generation behavior in [`thesis-content-formatter`], but let this skill override it whenever the school rules are stricter or more explicit.
 

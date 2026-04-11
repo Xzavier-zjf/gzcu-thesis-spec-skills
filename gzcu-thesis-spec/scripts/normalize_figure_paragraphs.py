@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 import argparse
+import re
 from pathlib import Path
 
 from docx import Document
-from docx.oxml.ns import qn
 from docx.shared import Pt
 
 
 HEADING_STYLES = {'Heading 1', 'Heading 2', 'Heading 3', '标题 1', '标题 2', '标题 3'}
+FIGURE_CAPTION_RE = r'^图\d+-\d+'
+TABLE_CAPTION_RE = r'^表\d+-\d+'
+FIGURE_REF_RE = r'图\d+-\d+'
 
 
 def is_picture_paragraph(paragraph) -> bool:
@@ -23,6 +26,36 @@ def is_empty(paragraph) -> bool:
     return not paragraph.text.strip()
 
 
+def norm(text: str) -> str:
+    return ' '.join((text or '').split())
+
+
+def is_figure_caption(paragraph) -> bool:
+    return bool(re.match(FIGURE_CAPTION_RE, norm(paragraph.text)))
+
+
+def is_table_caption(paragraph) -> bool:
+    return bool(re.match(TABLE_CAPTION_RE, norm(paragraph.text)))
+
+
+def is_media_boundary(paragraph) -> bool:
+    return (
+        is_empty(paragraph)
+        or is_heading_like(paragraph)
+        or is_picture_paragraph(paragraph)
+        or is_table_caption(paragraph)
+    )
+
+
+def is_intro_paragraph(paragraph, figure_no: str) -> bool:
+    text = norm(paragraph.text)
+    if not text or is_heading_like(paragraph) or is_picture_paragraph(paragraph) or is_table_caption(paragraph):
+        return False
+    if figure_no and figure_no in text:
+        return True
+    return bool(re.search(r'如图\d+-\d+所示', text))
+
+
 def zero_spacing(paragraph) -> None:
     fmt = paragraph.paragraph_format
     fmt.space_before = Pt(0)
@@ -35,17 +68,34 @@ def normalize_block(paragraphs, idx: int) -> None:
     fmt.line_spacing = 1.5
     fmt.space_before = Pt(0)
     fmt.space_after = Pt(0)
+    next_idx = idx + 1
+    if next_idx >= len(paragraphs):
+        return
 
-    neighbor_indexes = []
-    if idx - 1 >= 0 and not is_empty(paragraphs[idx - 1]) and not is_heading_like(paragraphs[idx - 1]):
-        neighbor_indexes.append(idx - 1)
-    if idx + 1 < len(paragraphs) and not is_empty(paragraphs[idx + 1]) and not is_heading_like(paragraphs[idx + 1]):
-        neighbor_indexes.append(idx + 1)
-    if idx + 2 < len(paragraphs) and not is_empty(paragraphs[idx + 2]) and not is_heading_like(paragraphs[idx + 2]):
-        neighbor_indexes.append(idx + 2)
+    caption_paragraph = paragraphs[next_idx]
+    if is_media_boundary(caption_paragraph) or not is_figure_caption(caption_paragraph):
+        return
 
-    for i in neighbor_indexes:
-        zero_spacing(paragraphs[i])
+    zero_spacing(caption_paragraph)
+    figure_no = None
+    match = re.match(FIGURE_CAPTION_RE, norm(caption_paragraph.text))
+    if match:
+        figure_no = match.group(0)
+
+    if figure_no and idx - 1 >= 0:
+        prev = paragraphs[idx - 1]
+        if is_intro_paragraph(prev, figure_no):
+            zero_spacing(prev)
+
+    analysis_idx = next_idx + 1
+    if analysis_idx >= len(paragraphs):
+        return
+
+    analysis_paragraph = paragraphs[analysis_idx]
+    if is_media_boundary(analysis_paragraph) or is_figure_caption(analysis_paragraph):
+        return
+
+    zero_spacing(analysis_paragraph)
 
 
 def main() -> None:
