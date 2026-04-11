@@ -16,6 +16,8 @@ The skill integrates with other Codex tools including:
 - **$drawio**: For thesis diagrams such as architecture figures, ER diagrams, flowcharts, and research workflow figures
 - **$playwright-cli**: For browser-based evidence collection, page screenshots, UI flow verification, and runtime proof
 
+The skill runs through `SKILL.md` plus short skill-name references and does not depend on provider-specific agent YAML files.
+
 ### Key Features
 
 #### 1. School-Specific Rule Enforcement
@@ -61,8 +63,6 @@ The skill provides Python scripts for Word document automation:
 ```
 gzcu-thesis-spec/
 ├── SKILL.md                          # Main skill definition and workflow
-├── agents/
-│   └── openai.yaml                   # Agent interface configuration
 ├── references/                       # 15+ reference documents
 │   ├── content-and-structure.md      # Content and chapter structure rules
 │   ├── layout-and-word-rules.md      # Word layout and formatting rules
@@ -135,6 +135,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **$drawio**：用于论文图表，如架构图、ER 图、流程图和研究工作流图
 - **$playwright-cli**：用于基于浏览器的证据收集、页面截图、UI 流程验证和运行时证明
 
+本技能通过 `SKILL.md` 和短名称 Skill 引用运行，不依赖 provider-specific agent YAML 文件。
+
 ### 核心功能
 
 #### 1. 学校特定规则执行
@@ -180,8 +182,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ```
 gzcu-thesis-spec/
 ├── SKILL.md                          # 主技能定义和工作流
-├── agents/
-│   └── openai.yaml                   # Agent 接口配置
 ├── references/                       # 15+ 份参考文档
 │   ├── content-and-structure.md      # 内容和章节结构规则
 │   ├── layout-and-word-rules.md      # Word 排版和格式规则

@@ -10,7 +10,6 @@ from docx.shared import Pt
 HEADING_STYLES = {'Heading 1', 'Heading 2', 'Heading 3', '标题 1', '标题 2', '标题 3'}
 FIGURE_CAPTION_RE = r'^图\d+-\d+'
 TABLE_CAPTION_RE = r'^表\d+-\d+'
-FIGURE_REF_RE = r'图\d+-\d+'
 
 
 def is_picture_paragraph(paragraph) -> bool:
