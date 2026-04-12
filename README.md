@@ -48,6 +48,16 @@ The skill integrates with:
 - clickable body citations pointing to bibliography items in the final `.docx`
 - figure/table numbering and in-text references
 
+#### Minimum final-docx baseline
+
+If the user asks for a submission-ready final `.docx`, the minimum recommended delivery line is:
+
+- Word-generated TOC
+- correct section breaks, headers, and page-number switching
+- clickable body-to-reference cross-references
+
+Anything beyond this line, such as clickable figure/table jumping, should be treated as an enhancement unless explicitly requested.
+
 #### Optional final-docx enhancements
 
 - clickable figure cross-references
@@ -78,6 +88,7 @@ gzcu-thesis-spec/
 │   ├── asset-manifest-field-guide.md
 │   └── script-usage.md
 ├── scripts/
+│   ├── check_docx_baseline.py
 │   ├── assemble_thesis_assets.py
 │   ├── normalize_figure_paragraphs.py
 │   ├── build_reference_crossrefs.py
@@ -92,8 +103,9 @@ gzcu-thesis-spec/
 1. Collect real project evidence.
 2. Build a compliance matrix and evidence map.
 3. Draft or revise chapters using the submission-compatible 6-chapter structure by default.
-4. Finalize Word section breaks, headers, page numbers, TOC, and bibliography cross-references.
-5. Run a final compliance review.
+4. Run `check_docx_baseline.py` for a fast structural check when a real `.docx` is already available.
+5. Finalize Word section breaks, headers, page numbers, TOC, and bibliography cross-references.
+6. Run a final compliance review.
 
 ### Requirements
 
@@ -156,6 +168,16 @@ MIT License. See [LICENSE](LICENSE).
 - 正文引用在最终 `.docx` 中可点击跳转到参考文献
 - 图表按章编号，正文中存在对应引用
 
+#### 最终 docx 最低交付线
+
+如果用户要求的是“可提交的最终 `.docx`”，最低推荐交付线应明确为：
+
+- 目录由 Word 自动生成
+- Word 分节、页眉页码、页码切换正确
+- 正文引用可点击跳转到参考文献
+
+超过这条线的能力，例如图表点击跳转，应默认视为增强项，只有用户明确要求时再作为交付目标。
+
 #### 终稿增强项
 
 - 图正文引用可点击跳转到图题
@@ -175,8 +197,9 @@ MIT License. See [LICENSE](LICENSE).
 1. 先收集真实项目证据。
 2. 先建立 `compliance matrix` 和 `evidence map`。
 3. 默认按提交版兼容的 6 章结构逐章生成或修订内容。
-4. 最后处理 Word 分节、页眉页码、目录和正文引用交叉引用。
-5. 提交前做一次合规审查。
+4. 如果已经有真实 `docx`，先运行 `check_docx_baseline.py` 做快速结构检查。
+5. 最后处理 Word 分节、页眉页码、目录和正文引用交叉引用。
+6. 提交前做一次合规审查。
 
 ### 项目结构
 
@@ -200,6 +223,7 @@ gzcu-thesis-spec/
 │   ├── asset-manifest-field-guide.md
 │   └── script-usage.md
 ├── scripts/
+│   ├── check_docx_baseline.py
 │   ├── assemble_thesis_assets.py
 │   ├── normalize_figure_paragraphs.py
 │   ├── build_reference_crossrefs.py

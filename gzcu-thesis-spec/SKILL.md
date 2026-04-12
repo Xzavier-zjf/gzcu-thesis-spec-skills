@@ -22,7 +22,10 @@ Read only what the task needs:
 - Load [references/content-and-structure.md](references/content-and-structure.md) when writing or revising chapter content, abstracts, conclusion, acknowledgements, reference usage, chapter summaries, or section completeness.
 - Load [references/layout-and-word-rules.md](references/layout-and-word-rules.md) when the task involves Word layout, headers, footers, page numbers, section breaks, odd-page chapter starts, figure/table layout, fonts, spacing, or final manuscript formatting.
 - Load [references/compliance-checklist.md](references/compliance-checklist.md) when reviewing an existing thesis, preparing a final delivery checklist, or reporting unresolved risks and manual follow-ups.
+- Load [references/submission-template-baseline.md](references/submission-template-baseline.md) when the task must align to the compliant submission-ready `.docx` rather than relying only on generic school-rule summaries.
+- Load [references/review-severity-policy.md](references/review-severity-policy.md) when the task is a thesis review and the user needs a stable distinction between blocking issues and optional enhancements.
 - Load [references/output-blueprint.md](references/output-blueprint.md) when the user wants a stable output template for abstracts, TOC, chapter drafts, review reports, or final delivery packages.
+- Load [references/docx-review-playbook.md](references/docx-review-playbook.md) when the user provides a real `.docx` and wants template-aligned TOC planning, header/page-number review, or bibliography cross-reference handling.
 - Load [references/prompt-library.md](references/prompt-library.md) when the user wants ready-to-paste prompts such as abstract generation, citation checking, format review, or Word finalization requests.
 - Load [references/software-engineering-prompt-pack.md](references/software-engineering-prompt-pack.md) when the thesis is for a software engineering project and the user wants a Guangzhou City University of Technology oriented prompt pack by chapter or task.
 - Load [references/project-evidence-intake.md](references/project-evidence-intake.md) when the user needs a structured checklist to collect real project material before asking AI to write the thesis.
@@ -80,6 +83,7 @@ Pick one mode and stay consistent:
 - Constraint mode: output the rule matrix and task applicability first.
 - Chapter generation mode: write a requested chapter or section against the matrix.
 - Review mode: inspect an existing thesis and list violations first, ordered by severity.
+- Review mode should separate baseline compliance findings from optional final-docx enhancements whenever the compliant submission baseline does not prove the enhancement is mandatory.
 - Word implementation mode: give concrete Word-oriented instructions for section breaks, headers, page numbers, TOC, figures, tables, references, odd-page chapter starts, and when needed optional figure/table caption cross-references.
 - Asset assembly mode: assemble Draw.io figures, Playwright screenshots, and white-background code screenshots into the thesis via `scripts/assemble_thesis_assets.py`, then normalize figure-block spacing via `scripts/normalize_figure_paragraphs.py`.
 - Cross-reference mode: by default convert plain-text body citations into Word cross-references via `scripts/build_reference_crossrefs.py` so `Ctrl + 点击` jumps to the matching bibliography item. Only convert body figure/table references into clickable caption cross-references when the user explicitly wants clickable figure/table jumping in the final `.docx`.

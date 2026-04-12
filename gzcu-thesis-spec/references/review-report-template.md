@@ -2,6 +2,9 @@
 
 Use this file when the user wants a repeatable standard report for checking multiple thesis versions.
 
+For stable severity decisions, also load `review-severity-policy.md`.
+For template-aligned review against the compliant final manuscript, also load `submission-template-baseline.md`.
+
 ## 1. Usage rule
 
 Use this template for versioned review reports such as:
@@ -32,7 +35,7 @@ The report must stay comparable across versions so the user can see what improve
 
 Findings
 1. [问题标题]
-优先级：Critical / Major / Minor
+优先级：Critical / Major / Minor / Enhancement
 所在位置：
 违反规则：
 问题说明：
@@ -66,7 +69,7 @@ Open risks
 
 ## 3. Severity policy
 
-Use this severity mapping consistently:
+Use this severity mapping consistently. Keep `Enhancement` separate from blocking compliance issues.
 
 ### Critical
 
@@ -101,6 +104,15 @@ Presentation or consistency issues:
 - English/numeric font inconsistency,
 - spacing and title formatting inconsistencies,
 - wording not formal enough.
+
+### Enhancement
+
+Optional improvements beyond the compliant submission baseline:
+
+- clickable figure cross-references,
+- clickable table cross-references,
+- extra asset-normalization polish,
+- other final-docx improvements not proven mandatory by the submission baseline.
 
 ## 4. Quick review variants
 
@@ -138,10 +150,11 @@ Manual checks
 - 主要风险概览：
 
 Findings
-1. 分节符与页眉页码问题
+1. 四段分节与页眉页码问题
 2. 章节奇数页起始问题
 3. 目录自动生成或未更新问题
-4. 图表/代码截图格式问题
+4. 正文引用交叉引用问题
+5. 图表/代码截图格式问题
 
 Manual checks
 - 目录域更新
@@ -178,6 +191,7 @@ Manual checks
 - 每章页数
 - 奇数页起章
 - TOC 刷新
+- 正文引用点击跳转
 ```
 
 ## 5. Version comparison note
@@ -207,4 +221,9 @@ End with one of these recommendation lines:
 ```text
 提交建议
 - 当前版本已接近提交状态，仅剩少量 Minor 格式问题可继续打磨。
+```
+
+```text
+提交建议
+- 当前版本已达到提交基线，剩余主要为 Enhancement 项，可按时间决定是否继续打磨。
 ```

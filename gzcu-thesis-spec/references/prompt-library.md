@@ -64,13 +64,14 @@ Use this file when the user wants ready-to-paste prompts instead of workflow exp
 使用 $gzcu-thesis-spec，按广州城市理工学院本科毕业设计（论文）规范，对这篇论文做一次完整合规审查。
 
 请重点检查：
-1. 章节结构是否完整。
+1. 章节结构是否完整，且是否与提交版兼容结构明显冲突。
 2. 每章是否有本章小结。
 3. 摘要、结论、本章小结是否禁引。
 4. 参考文献数量、英文文献数量、近年文献占比是否达标。
 5. 引用顺序与参考文献顺序是否一致。
 6. 图表、代码截图、测试章节、部署章节是否合规。
-7. 页眉页码、分节符、奇数页起章、目录自动生成等 Word 终稿风险。
+7. 页眉页码、分节符、奇数页起章、目录自动生成、正文引用交叉引用等 Word 终稿风险。
+8. 把问题按 Critical、Major、Minor、Enhancement 分开，不能把可选增强项误判为不合规。
 
 输出格式：
 - Findings
@@ -128,6 +129,28 @@ Use this file when the user wants ready-to-paste prompts instead of workflow exp
 ```
 
 ## 7. Prompt writing rule
+
+## 7. DOCX review prompt pack
+
+### 7.1 TOC structure by template
+
+```text
+使用 $gzcu-thesis-spec，根据提交版模板给我一份可直接用于排版的完整目录结构，默认采用 6 章结构，并说明哪些地方最终仍需由 Word 自动生成。
+```
+
+### 7.2 Header/page-number review for a real docx
+
+```text
+使用 $gzcu-thesis-spec 和 $doc，按提交版模板基线检查这个 docx 的四段分节、页眉页码、目录和奇数页起章，并按 Critical、Major、Minor、Enhancement 输出 Findings。
+```
+
+### 7.3 Body citation cross-reference handling
+
+```text
+使用 $gzcu-thesis-spec 和 $doc，检查这篇 docx 的正文引用是否已经支持点击跳转到参考文献；如果还没有，请给我正文引用交叉引用处理方案，并明确禁引区域不要处理。
+```
+
+## 8. Prompt writing rule
 
 When adapting these prompts:
 
