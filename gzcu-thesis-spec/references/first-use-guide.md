@@ -22,7 +22,7 @@ Recommended first-use order:
 2. ask for a compliance matrix,
 3. ask for one chapter or one artifact at a time,
 4. review the result,
-5. only then assemble the full manuscript,
+5. only then assemble the full manuscript using the compliant 6-chapter structure by default,
 6. finish with Word finalization and a compliance review.
 
 ## 3. Fast start
@@ -62,28 +62,34 @@ Recommended first-use order:
 ### 4.3 Generate requirements analysis
 
 ```text
-使用 $gzcu-thesis-spec，根据以下项目材料撰写需求分析章节，要求紧贴真实业务流程、角色和功能边界，不要写成教材式套话。
+使用 $gzcu-thesis-spec，根据以下项目材料撰写第三章系统需求分析，要求紧贴真实业务流程、角色和功能边界，不要写成教材式套话。
 ```
 
-### 4.4 Generate testing chapter
+### 4.4 Generate related technology chapter
 
 ```text
-使用 $gzcu-thesis-spec，根据以下真实测试记录撰写系统测试章节，必须包含测试环境、功能测试、性能测试、测试结果分析，不得虚构测试数据。
+使用 $gzcu-thesis-spec，根据以下项目材料撰写第二章相关技术与理论基础，只保留与项目真实实现直接相关的技术基础，并以本章小结收束。
 ```
 
-### 4.5 Check citations and references
+### 4.5 Generate testing and deployment chapter
 
 ```text
-使用 $gzcu-thesis-spec，检查这篇论文的正文引用与参考文献是否符合学校要求，重点检查禁引区域、引用顺序、未引用文献、以及 [J]/[M] 页码范围缺失问题。
+使用 $gzcu-thesis-spec，根据以下真实测试记录和部署材料撰写第六章系统测试与部署，必须包含测试环境、功能测试、性能测试、测试结果分析、部署过程与运行支撑，不得虚构测试数据或部署事实。
 ```
 
-### 4.6 Prepare Word finalization guidance
+### 4.6 Check citations and references
 
 ```text
-使用 $gzcu-thesis-spec 和 $doc，给我这篇论文的 Word 终稿处理方案，重点覆盖分节符、页眉页码、目录、奇数页起章、参考文献和致谢起页规则。
+使用 $gzcu-thesis-spec，检查这篇论文的正文引用与参考文献是否符合学校要求，重点检查禁引区域、引用顺序、未引用文献、正文引用是否已做成可点击参考文献交叉引用、以及 [J]/[M] 页码范围缺失问题。
 ```
 
-### 4.7 Run a final compliance review
+### 4.7 Prepare Word finalization guidance
+
+```text
+使用 $gzcu-thesis-spec 和 $doc，给我这篇论文的 Word 终稿处理方案，重点覆盖四段分节、页眉页码、目录、奇数页起章、正文引用交叉引用，以及结论/参考文献/致谢连续编号规则。
+```
+
+### 4.8 Run a final compliance review
 
 ```text
 使用 $gzcu-thesis-spec，按广州城市理工学院本科毕业设计（论文）规范，对这篇论文做一次提交前审查，并按标准报告模板输出。
@@ -112,6 +118,7 @@ Do not ask the skill to:
 - write the full thesis from a one-line project description,
 - ignore the school formatting rules until the end,
 - write abstract, chapter summaries, or conclusion with literature citations,
+- keep using an older generic chapter skeleton when the compliant submission template already provides a valid 6-chapter structure,
 - treat Word pagination and odd-page chapter starts as optional.
 
 ## 7. Best practice

@@ -10,7 +10,7 @@ Use this skill to apply Guangzhou City University of Technology undergraduate th
 For `.docx` editing, section breaks, headers, footers, page numbering, TOC refresh, figure/table placement, and final Word inspection, also use `$doc`.
 For thesis diagrams such as architecture figures, ER diagrams, flowcharts, and research workflow figures, also use `$drawio`.
 For browser-based evidence collection such as page screenshots, UI flow verification, and visible runtime proof from the real system, also use `$playwright-cli`.
-For batch asset insertion, figure-paragraph spacing normalization, and clickable reference, figure-caption, or table-caption cross-references inside Word, use this skill's local `scripts/` helpers together with `$doc`.
+For batch asset insertion, figure-paragraph spacing normalization, and clickable reference cross-references inside Word, use this skill's local `scripts/` helpers together with `$doc`. Figure/table clickable cross-references are optional final-docx enhancements unless the user explicitly requests them.
 This skill relies on short skill-name resolution and is compatible with Codex or Claude Code environments that have the referenced skills installed. It does not depend on machine-specific absolute skill paths.
 
 This skill is school-specific and should override generic thesis-generation behavior whenever the school rules are stricter or more explicit.
@@ -39,7 +39,7 @@ Read only what the task needs:
 
 ### 1. Build the compliance matrix first
 
-Extract the school rules that apply to the current task before writing anything. Track at least:
+Extract the school rules and compliant-template behaviors that apply to the current task before writing anything. Track at least:
 
 - required sections and forbidden sections,
 - length and chapter-page constraints,
@@ -48,7 +48,12 @@ Extract the school rules that apply to the current task before writing anything.
 - figure/table/code-display constraints,
 - manual-review items that AI cannot fully guarantee.
 
-Treat the cover page and the second explanation page as locked template pages. Do not propose edits there. Apply the school formatting rules starting from the Chinese abstract page.
+Treat the cover page and the second explanation page as locked template pages. Do not propose edits there. Apply the school formatting rules starting from the Chinese abstract page, and prefer the compliant template's 4-section Word model:
+
+- cover + explanation page,
+- Chinese abstract + English abstract,
+- TOC,
+- main body through acknowledgements.
 
 ### 2. Ground the thesis in project evidence
 
@@ -75,9 +80,9 @@ Pick one mode and stay consistent:
 - Constraint mode: output the rule matrix and task applicability first.
 - Chapter generation mode: write a requested chapter or section against the matrix.
 - Review mode: inspect an existing thesis and list violations first, ordered by severity.
-- Word implementation mode: give concrete Word-oriented instructions for section breaks, headers, page numbers, TOC, figures, tables, references, figure-caption cross-references, table-caption cross-references, and odd-page chapter starts.
+- Word implementation mode: give concrete Word-oriented instructions for section breaks, headers, page numbers, TOC, figures, tables, references, odd-page chapter starts, and when needed optional figure/table caption cross-references.
 - Asset assembly mode: assemble Draw.io figures, Playwright screenshots, and white-background code screenshots into the thesis via `scripts/assemble_thesis_assets.py`, then normalize figure-block spacing via `scripts/normalize_figure_paragraphs.py`.
-- Cross-reference mode: convert plain-text body citations into Word cross-references via `scripts/build_reference_crossrefs.py`, convert body figure references into caption cross-references via `scripts/build_figure_crossrefs.py`, and convert body table references into caption cross-references via `scripts/build_table_crossrefs.py`, so `Ctrl + 点击` jumps to the matching bibliography item, figure caption, or table caption.
+- Cross-reference mode: by default convert plain-text body citations into Word cross-references via `scripts/build_reference_crossrefs.py` so `Ctrl + 点击` jumps to the matching bibliography item. Only convert body figure/table references into clickable caption cross-references when the user explicitly wants clickable figure/table jumping in the final `.docx`.
 
 ### 4. Enforce the hard bans
 
@@ -91,10 +96,9 @@ Never do these unless the user explicitly overrides the school rules:
 - ignore odd-page chapter starts and required blank transition pages,
 - ignore Word section separation for headers and page numbers,
 - let figure/table numbering exist without in-text references,
-- leave figure references as plain text when the final Word manuscript should support clickable figure-caption cross-references,
-- leave table references as plain text when the final Word manuscript should support clickable table-caption cross-references,
 - leave inserted figure blocks without normalized picture-paragraph spacing,
 - keep plain-text reference numbers in the body when the user explicitly wants clickable Word cross-references,
+- keep plain-text reference numbers in the body when the final `.docx` should support clickable reference jumping,
 - let bibliography cross-references lose their superscript formatting after figure or table cross-reference processing,
 - leave journal `[J]` or monograph `[M]` references without page ranges,
 - rewrite the cover page or school statement page.

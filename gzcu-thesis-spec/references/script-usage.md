@@ -4,7 +4,21 @@ Use this file when the user wants to run the asset assembly and cross-reference 
 
 All commands below are written so they can be executed from the repository root. If you `cd gzcu-thesis-spec` first, remove the `gzcu-thesis-spec/` prefix from script and template paths.
 
-## 1. Assemble figures and screenshots
+## 1. Baseline vs enhancement
+
+Treat the scripts in two groups:
+
+- baseline final-docx scripts:
+  - `build_reference_crossrefs.py`
+  - optionally `assemble_thesis_assets.py`
+  - optionally `normalize_figure_paragraphs.py`
+- enhancement scripts:
+  - `build_figure_crossrefs.py`
+  - `build_table_crossrefs.py`
+
+The compliant submission template confirms clickable body-to-reference jumping as a baseline target. It does not prove that clickable figure/table jumping is mandatory for submission. Therefore, only run the figure/table cross-reference scripts when the user explicitly wants those jumps in the final `.docx`.
+
+## 2. Assemble figures and screenshots
 
 ```bash
 py gzcu-thesis-spec/scripts/assemble_thesis_assets.py gzcu-thesis-spec/templates/asset-manifest.template.json --save-as thesis.assets.docx
@@ -20,7 +34,7 @@ Start from the built-in template if you do not already have a manifest:
 
 - [templates/asset-manifest.template.json](../templates/asset-manifest.template.json)
 
-## 2. Normalize image paragraph spacing
+## 3. Normalize image paragraph spacing
 
 ```bash
 py gzcu-thesis-spec/scripts/normalize_figure_paragraphs.py thesis.assets.docx --save-as thesis.assets.normalized.docx
@@ -29,45 +43,61 @@ py gzcu-thesis-spec/scripts/normalize_figure_paragraphs.py thesis.assets.docx --
 Use when you need to enforce:
 
 - `1.5` line spacing for image paragraphs,
-- zeroed paragraph spacing around the figure block.
+- figure-block spacing compatible with the school template.
 
 This script only targets image blocks. It does not convert the whole document to `1.5` line spacing.
 
-## 3. Build cross-reference citations
+## 4. Build reference cross-reference citations
 
 ```bash
-py gzcu-thesis-spec/scripts/build_reference_crossrefs.py thesis.tbl-crossref.docx --save-as thesis.final.docx
+py gzcu-thesis-spec/scripts/build_reference_crossrefs.py thesis.docx --save-as thesis.ref-crossref.docx
 ```
 
 Use when the document still has plain-text citations like `[1]` and you want Word cross-references that support `Ctrl + 点击` to the corresponding reference item.
 
-## 4. Build figure-caption cross-references
+Baseline assumptions:
+
+- the references section starts at a paragraph exactly named `参考文献`,
+- reference items are converted into bookmarkable entries such as `gzcu_ref_1`, `gzcu_ref_2`, ...
+- only body citations are rebuilt; abstract, chapter summaries, and conclusion stay untouched.
+
+## 5. Build figure-caption cross-references
 
 ```bash
 py gzcu-thesis-spec/scripts/build_figure_crossrefs.py thesis.assets.normalized.docx --save-as thesis.fig-crossref.docx
 ```
 
-Use when the document still has plain-text figure references such as `如图4-1所示` and you want `Ctrl + 点击` on `图4-1` to jump to the matching figure caption.
+Use only when the user explicitly wants `Ctrl + 点击` on body figure references such as `如图4-1所示` to jump to the matching figure caption.
 
-## 5. Build table-caption cross-references
+## 6. Build table-caption cross-references
 
 ```bash
 py gzcu-thesis-spec/scripts/build_table_crossrefs.py thesis.fig-crossref.docx --save-as thesis.tbl-crossref.docx
 ```
 
-Use when the document still has plain-text table references such as `如表4-1所示` or `见表4-2` and you want `Ctrl + 点击` on `表4-1` to jump to the matching table caption.
+Use only when the user explicitly wants `Ctrl + 点击` on body table references such as `如表4-1所示` or `见表4-2` to jump to the matching table caption.
 
-## 6. Recommended order
+## 7. Recommended order
 
-1. generate images with `$drawio` and `$playwright-cli`
-2. assemble them into the thesis with `assemble_thesis_assets.py`
-3. normalize picture-block spacing with `normalize_figure_paragraphs.py`
-4. convert body figure references to caption cross-references with `build_figure_crossrefs.py` using `thesis.assets.normalized.docx` as input
-5. convert body table references to caption cross-references with `build_table_crossrefs.py` using `thesis.fig-crossref.docx` as input
-6. convert body citations to cross-references with `build_reference_crossrefs.py` using `thesis.tbl-crossref.docx` as input
-7. use `$doc` to do the final Word layout review
+### Baseline final-docx order
 
-## 7. Safety notes
+1. generate images with `$drawio` and `$playwright-cli` when needed
+2. assemble them into the thesis with `assemble_thesis_assets.py` when needed
+3. normalize picture-block spacing with `normalize_figure_paragraphs.py` when needed
+4. convert body citations to clickable bibliography cross-references with `build_reference_crossrefs.py`
+5. use `$doc` to do the final Word layout review
+
+### Optional enhancement order
+
+If the user explicitly wants clickable figure/table jumping:
+
+1. run the baseline flow first
+2. convert body figure references with `build_figure_crossrefs.py`
+3. convert body table references with `build_table_crossrefs.py`
+4. re-check that bibliography cross-references are still superscript
+5. re-check that正文 `图X-X` / `表X-X` still use body-text size rather than caption size
+
+## 8. Safety notes
 
 - Always keep a backup copy of the source `.docx`.
 - Prefer `--save-as` during early iterations.

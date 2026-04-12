@@ -2,6 +2,8 @@
 
 Use this file when drafting or revising thesis content.
 
+This file is aligned to a real compliant GZCU submission draft. Treat the submission-ready chapter organization as the preferred default unless the user's school or supervisor gives a newer mandatory structure.
+
 ## 1. Scope and baseline
 
 - Apply all thesis formatting and content rules starting from the Chinese abstract page.
@@ -13,31 +15,62 @@ Use this file when drafting or revising thesis content.
 ## 2. Length and chapter completeness
 
 - Main text must be at least `1.5万字`.
-- Each chapter must be at least `3` pages.
-- The thesis must cover at least: background analysis, requirements analysis, overall design, detailed design and implementation, system testing with concrete test cases and result analysis, and deployment.
-- Every chapter, including Chapter 1, must end with `本章小结`.
+- Each chapter should satisfy the school's `每章不少于3页` expectation after final Word layout.
+- The thesis must cover at least: background analysis, related technology or theoretical basis, requirements analysis, overall design, detailed design and implementation, system testing with concrete test cases and result analysis, and deployment or operation support.
+- Testing and deployment may be written as two separate chapters or combined into one chapter when the combined structure is closer to the compliant submission template.
+- Every body chapter, including Chapter 1, must end with `本章小结`.
 - `本章小结` only summarizes the chapter. Do not introduce new content there.
 
-## 3. Chapter and section structure
+## 3. Preferred chapter structure
 
-Use or verify a structure that preserves these mandatory sections:
+Use or verify a structure compatible with the compliant submission template:
 
 1. Chinese abstract
 2. English abstract
 3. TOC
-4. Chapter 1 introduction / overview
-5. Requirements analysis
-6. Overall design
-7. Detailed design and implementation
-8. System testing
-9. Deployment or operation support
-10. Conclusion
-11. References
-12. Acknowledgements
+4. 第一章 绪论
+5. 第二章 相关技术与理论基础
+6. 第三章 系统需求分析
+7. 第四章 系统总体设计
+8. 第五章 系统详细设计与实现
+9. 第六章 系统测试与部署
+10. 结论
+11. 参考文献
+12. 致谢
 
-Adjust chapter titles if needed, but do not omit the mandatory substance.
+Do not rigidly force an older generic skeleton such as "需求分析 directly after 绪论" if the submission-ready template already proves a different structure is compliant.
 
-## 4. Abstract, conclusion, acknowledgements
+## 4. Chapter substance requirements
+
+### 第一章 绪论
+
+- Usually contains `1.1 选题背景与研究意义`、`1.2 国内外研究现状`、`1.3 本文研究内容与目标`、`1.4 论文结构`、`1.5 本章小结`.
+- `论文结构` must match the real final chapter arrangement, not a generic placeholder outline.
+
+### 第二章 相关技术与理论基础
+
+- This chapter is part of the preferred software-engineering thesis structure and should not be omitted by default.
+- It should explain the real technical or theoretical basis actually used by the project, not textbook padding unrelated to the implementation.
+
+### 第三章 系统需求分析
+
+- Cover real user roles, business goals, functional requirements, non-functional requirements, and key workflows.
+
+### 第四章 系统总体设计
+
+- Cover architecture, module division, database design, interface design, and supporting design decisions.
+
+### 第五章 系统详细设计与实现
+
+- Focus on core modules, key business flows, key algorithms, and implementation logic.
+- Explain implementation in prose. Do not paste long raw code blocks.
+
+### 第六章 系统测试与部署
+
+- This chapter may combine testing and deployment when that matches the compliant template.
+- It should still cover testing environment, test strategy, concrete test cases, result analysis, deployment process, and runtime support evidence as applicable.
+
+## 5. Abstract, conclusion, acknowledgements
 
 ### Chinese abstract
 
@@ -55,18 +88,18 @@ Adjust chapter titles if needed, but do not omit the mandatory substance.
 
 ### Conclusion
 
-- Start on a new page.
+- Start on a new page and on an odd-numbered page in final Word layout.
 - Do not include literature citations.
 - Do not write learning experience or personal feelings.
 - Summarize completed work, actual results, limitations, and future improvements.
 
 ### Acknowledgements
 
-- Start on a new page.
+- Start on a new page and on an odd-numbered page in final Word layout.
 - Keep the tone sincere and factual.
 - The supervisor's full name must appear.
 
-## 5. Citation and bibliography rules
+## 6. Citation and bibliography rules
 
 - The body must cite the references list. Do not leave uncited references at the end.
 - Cite other people's achievements, methods, viewpoints, data, or technical sources, not common knowledge.
@@ -78,15 +111,16 @@ Adjust chapter titles if needed, but do not omit the mandatory substance.
 - Include at least `2` English references.
 - Prefer `80%+` references from the most recent 5 years or `2022` and later when possible.
 - Ensure journal `[J]` and monograph `[M]` entries include page ranges.
+- For final `.docx` delivery, treat clickable body-to-reference cross-references as the default target state.
 
-## 6. Originality and duplication risk
+## 7. Originality and duplication risk
 
 - Repetition above `30%` blocks defense.
 - Repetition above `20%` blocks excellence awards.
 - Avoid over-copying background and technology introduction text.
 - Ground every major chapter in the real project instead of generic textbook prose.
 
-## 7. Figures, tables, code, and diagrams in content
+## 8. Figures, tables, code, and diagrams in content
 
 - Every figure and table must be cited in the body, for example `如图1-1所示` or `如表1-1所示`.
 - Explain what each figure/table demonstrates. Do not leave figures or tables unexplained.
@@ -94,16 +128,18 @@ Adjust chapter titles if needed, but do not omit the mandatory substance.
 - If code must be shown, use white-background code screenshots.
 - Flowcharts must use arrows.
 - ER diagrams must not use arrows on relationship lines.
+- Clickable figure/table cross-references are optional enhancements, not the minimum compliance baseline, unless the user explicitly asks for them in the final `.docx`.
 
-## 8. Writing checklist before delivery
+## 9. Writing checklist before delivery
 
 Confirm all of the following:
 
 - the thesis uses formal language,
 - the body avoids first person,
-- every chapter ends with `本章小结`,
+- every body chapter ends with `本章小结`,
 - the abstract, chapter summaries, and conclusion contain no citations,
 - the thesis includes concrete test cases and result analysis,
+- deployment or operation support is covered either in an independent chapter or inside a combined `系统测试与部署` chapter,
 - the references are all cited in the body and numbered in citation order,
 - all figures and tables are cited and explained in prose,
 - acknowledgements include the supervisor's full name.
