@@ -37,6 +37,7 @@ The skill integrates with:
 - odd-page chapter starts
 - Roman/Arabic page-number separation
 - body-to-reference Word cross-references as the default final-docx target
+- chapter summaries (`本章小结`) remain required in the default software-engineering structure
 
 ### Baseline vs Optional Enhancements
 
@@ -47,6 +48,10 @@ The skill integrates with:
 - correct odd/even header behavior
 - clickable body citations pointing to bibliography items in the final `.docx`
 - figure/table numbering and in-text references
+- the TOC stays in its own section with hidden page numbers
+- abstract pages use Roman numerals, while正文 starts Arabic numbering from Chapter 1 page `1`
+- the even-page header is fixed as `广州城市理工学院本科毕业设计（论文）`
+- the odd-page header follows the current level-1 heading via `STYLEREF`
 
 #### Minimum final-docx baseline
 
@@ -57,6 +62,12 @@ If the user asks for a submission-ready final `.docx`, the minimum recommended d
 - clickable body-to-reference cross-references
 
 Anything beyond this line, such as clickable figure/table jumping, should be treated as an enhancement unless explicitly requested.
+
+When rebuilding bibliography jumps in the final `.docx`, the baseline behavior should follow the same scope already validated in the compliant sample:
+
+- reference items are bookmarkable as `gzcu_ref_n`
+- clickable bibliography rebuilding targets body citations
+- abstract, chapter summaries, and conclusion stay outside that rebuild scope
 
 #### Optional final-docx enhancements
 
@@ -69,6 +80,23 @@ The compliant sample confirms bibliography jumping as baseline behavior. It does
 ### Repository Structure
 
 ```text
+evals/
+├── README.md
+├── checks/
+│   └── README.md
+├── cases/
+│   ├── toc-request.md
+│   ├── header-footer-review.md
+│   ├── bibliography-crossref.md
+│   ├── optional-figure-table-jumps.md
+│   └── software-thesis-6chapter-default.md
+└── expected/
+    ├── toc-request.checklist.md
+    ├── header-footer-review.checklist.md
+    ├── bibliography-crossref.checklist.md
+    ├── optional-figure-table-jumps.checklist.md
+    └── software-thesis-6chapter-default.checklist.md
+
 gzcu-thesis-spec/
 ├── SKILL.md
 ├── references/
@@ -98,6 +126,37 @@ gzcu-thesis-spec/
     └── asset-manifest.template.json
 ```
 
+### Lightweight Evals
+
+This repository now includes a small `evals/` directory so the skill can be regression-checked against the submission-ready GZCU baseline.
+
+These evals are meant to catch drift in:
+
+- default chapter structure
+- Word section / header / page-number guidance
+- baseline bibliography jumping expectations
+- the boundary between hard requirements and optional final-docx enhancements
+
+They do not replace `gzcu-thesis-spec/scripts/check_docx_baseline.py`. That script checks real `.docx` structure, while `evals/` checks the skill's documented and prompted behavior.
+
+For a lightweight semi-automated pass, run:
+
+```bash
+py evals/checks/run_eval_check.py toc-request --response-file answer.txt
+```
+
+### Why There Is No Top-Level `assets/`
+
+This repository intentionally does not add a generic top-level `assets/` directory yet.
+
+Reusable asset support already exists via:
+
+- `gzcu-thesis-spec/templates/asset-manifest.template.json`
+- `gzcu-thesis-spec/references/asset-assembly-schema.md`
+- `gzcu-thesis-spec/references/asset-manifest-field-guide.md`
+
+If future script regression needs fixed screenshots or figure fixtures, prefer `evals/fixtures/` or `examples/assets/` over a broad catch-all `assets/` directory.
+
 ### Typical Workflow
 
 1. Collect real project evidence.
@@ -105,7 +164,9 @@ gzcu-thesis-spec/
 3. Draft or revise chapters using the submission-compatible 6-chapter structure by default.
 4. Run `check_docx_baseline.py` for a fast structural check when a real `.docx` is already available.
 5. Finalize Word section breaks, headers, page numbers, TOC, and bibliography cross-references.
-6. Run a final compliance review.
+6. Keep `本章小结` in each body chapter and preserve the merged Chapter 6 testing-and-deployment structure.
+7. If bibliography jumping is needed, use `build_reference_crossrefs.py` with `gzcu_ref_n` bookmarks and keep abstract / chapter summaries / conclusion outside the rebuild scope.
+8. Run a final compliance review.
 
 ### Requirements
 
@@ -158,6 +219,7 @@ MIT License. See [LICENSE](LICENSE).
 - 每章、结论、参考文献、致谢从奇数页开始
 - 摘要与正文使用分离的 Roman / Arabic 页码体系
 - 最终 `.docx` 默认应支持正文引用跳转到参考文献
+- 默认软件工程章节继续要求 `本章小结`
 
 ### 基础要求与增强项
 
@@ -167,6 +229,10 @@ MIT License. See [LICENSE](LICENSE).
 - Word 分节、页眉页码正确
 - 正文引用在最终 `.docx` 中可点击跳转到参考文献
 - 图表按章编号，正文中存在对应引用
+- 目录属于独立分节，但隐藏页码
+- 摘要使用 Roman 页码，正文从第一章开始 Arabic 页码 `1`
+- 偶数页页眉固定为 `广州城市理工学院本科毕业设计（论文）`
+- 奇数页页眉通过当前一级标题的 `STYLEREF` 结果带入
 
 #### 最终 docx 最低交付线
 
@@ -186,6 +252,12 @@ MIT License. See [LICENSE](LICENSE).
 
 当前证据只足以证明“正文引用跳转参考文献”是合规终稿里的基线能力，不足以证明“图表点击跳转”是提交必做项，因此图表交叉引用默认保留为按需增强。
 
+正文引用跳转参考文献的基线做法还应保持以下边界：
+
+- 参考文献条目可按 `gzcu_ref_n` 书签命名
+- 正文引用重建只进入主文
+- 摘要、本章小结、结论不进入正文引用重建范围
+
 ### 与其他 Skill 的配合
 
 - **$doc**：处理 `.docx`、分节、页眉页脚、页码、目录刷新和最终检查
@@ -199,11 +271,30 @@ MIT License. See [LICENSE](LICENSE).
 3. 默认按提交版兼容的 6 章结构逐章生成或修订内容。
 4. 如果已经有真实 `docx`，先运行 `check_docx_baseline.py` 做快速结构检查。
 5. 最后处理 Word 分节、页眉页码、目录和正文引用交叉引用。
-6. 提交前做一次合规审查。
+6. 保留每章 `本章小结`，并默认把测试与部署合并在第六章。
+7. 处理正文引用跳转时，使用 `build_reference_crossrefs.py`，按 `gzcu_ref_n` 书签命名，并把摘要、本章小结、结论排除在重建范围外。
+8. 提交前做一次合规审查。
 
 ### 项目结构
 
 ```text
+evals/
+├── README.md
+├── checks/
+│   └── README.md
+├── cases/
+│   ├── toc-request.md
+│   ├── header-footer-review.md
+│   ├── bibliography-crossref.md
+│   ├── optional-figure-table-jumps.md
+│   └── software-thesis-6chapter-default.md
+└── expected/
+    ├── toc-request.checklist.md
+    ├── header-footer-review.checklist.md
+    ├── bibliography-crossref.checklist.md
+    ├── optional-figure-table-jumps.checklist.md
+    └── software-thesis-6chapter-default.checklist.md
+
 gzcu-thesis-spec/
 ├── SKILL.md
 ├── references/
@@ -232,6 +323,40 @@ gzcu-thesis-spec/
 └── templates/
     └── asset-manifest.template.json
 ```
+
+### 轻量评测目录
+
+仓库现在补充了一个最小 `evals/` 目录，用来回归检查 Skill 是否仍然对齐已经验证可提交的 GZCU 终稿基线。
+
+它主要防止这些内容回退：
+
+- 默认章节结构回到旧模板
+- 页眉页码和分节规则回到泛化说法
+- 把“正文引用跳转参考文献”降级成可有可无
+- 把“图表点击跳转”错误抬升为提交硬要求
+
+`evals/` 不替代 `gzcu-thesis-spec/scripts/check_docx_baseline.py`。
+
+- `check_docx_baseline.py` 负责真实 `.docx` 结构检查
+- `evals/` 负责 Skill 话术、默认行为和审查口径检查
+
+如果要做一个轻量的半自动检查，可以运行：
+
+```bash
+py evals/checks/run_eval_check.py toc-request --response-file answer.txt
+```
+
+### 为什么暂不添加顶层 assets
+
+当前仓库刻意不新增一个泛化的顶层 `assets/` 目录。
+
+原因是：
+
+- 已经有 `gzcu-thesis-spec/templates/asset-manifest.template.json`
+- 已经有 `gzcu-thesis-spec/references/asset-assembly-schema.md`
+- 已经有 `gzcu-thesis-spec/references/asset-manifest-field-guide.md`
+
+如果未来真的需要固定截图、插图或脚本回归输入，更适合新增 `evals/fixtures/` 或 `examples/assets/`，而不是先放一个职责模糊的通用 `assets/` 目录。
 
 ### 安装要求
 

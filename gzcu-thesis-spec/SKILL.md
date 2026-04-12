@@ -58,6 +58,26 @@ Treat the cover page and the second explanation page as locked template pages. D
 - TOC,
 - main body through acknowledgements.
 
+When the user wants a software-engineering thesis structure, default to the submission-compatible 6-chapter model:
+
+- Chapter 1 Introduction / 第一章 绪论
+- Chapter 2 Related Technology and Theoretical Basis / 第二章 相关技术与理论基础
+- Chapter 3 System Requirements Analysis / 第三章 系统需求分析
+- Chapter 4 Overall System Design / 第四章 系统总体设计
+- Chapter 5 Detailed Design and Implementation / 第五章 系统详细设计与实现
+- Chapter 6 System Testing and Deployment / 第六章 系统测试与部署
+
+Keep `本章小结` in each body chapter, and do not force deployment into a separate standalone body chapter.
+
+For Word layout review and implementation, keep the compliant sample's baseline details explicit:
+
+- abstract pages use Roman numerals,
+- the TOC stays in its own section with hidden page numbers,
+-正文 starts Arabic numbering from Chapter 1 page `1`,
+- the even-page header is fixed as `广州城市理工学院本科毕业设计（论文）`,
+- the odd-page header follows the current level-1 heading via `STYLEREF`,
+- conclusion, references, and acknowledgements continue under the same odd/even header mechanism instead of separate dedicated header sections.
+
 ### 2. Ground the thesis in project evidence
 
 Before drafting, collect evidence from the real project:
@@ -84,9 +104,11 @@ Pick one mode and stay consistent:
 - Chapter generation mode: write a requested chapter or section against the matrix.
 - Review mode: inspect an existing thesis and list violations first, ordered by severity.
 - Review mode should separate baseline compliance findings from optional final-docx enhancements whenever the compliant submission baseline does not prove the enhancement is mandatory.
+- In review mode, treat figure/table numbering and in-text references as baseline hard requirements, but keep clickable figure jumps and clickable table jumps as optional enhancements unless explicitly requested.
 - Word implementation mode: give concrete Word-oriented instructions for section breaks, headers, page numbers, TOC, figures, tables, references, odd-page chapter starts, and when needed optional figure/table caption cross-references.
 - Asset assembly mode: assemble Draw.io figures, Playwright screenshots, and white-background code screenshots into the thesis via `scripts/assemble_thesis_assets.py`, then normalize figure-block spacing via `scripts/normalize_figure_paragraphs.py`.
 - Cross-reference mode: by default convert plain-text body citations into Word cross-references via `scripts/build_reference_crossrefs.py` so `Ctrl + 点击` jumps to the matching bibliography item. Only convert body figure/table references into clickable caption cross-references when the user explicitly wants clickable figure/table jumping in the final `.docx`.
+- Bibliography cross-reference mode should keep the verified baseline wording explicit: `build_reference_crossrefs.py` may rebuild body citations against `gzcu_ref_n` bookmarks, while abstract, chapter summaries, and conclusion stay outside that rebuild scope.
 
 ### 4. Enforce the hard bans
 
