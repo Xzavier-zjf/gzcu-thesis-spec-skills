@@ -15,31 +15,31 @@ Use these evals as a lightweight guardrail, not a heavyweight benchmark suite.
 Run from the repository root:
 
 ```bash
-py evals/checks/run_eval_check.py toc-request --response-file answer.txt
+py gzcu-thesis-spec/evals/checks/run_eval_check.py toc-request --response-file answer.txt
 ```
 
 Run all cases against one response file:
 
 ```bash
-py evals/checks/run_eval_check.py --all --response-file answer.txt
+py gzcu-thesis-spec/evals/checks/run_eval_check.py --all --response-file answer.txt
 ```
 
 Or pipe text in through stdin:
 
 ```bash
-Get-Content answer.txt | py evals/checks/run_eval_check.py bibliography-crossref
+Get-Content answer.txt | py gzcu-thesis-spec/evals/checks/run_eval_check.py bibliography-crossref
 ```
 
 Use `--json` when you want machine-readable output:
 
 ```bash
-py evals/checks/run_eval_check.py header-footer-review --response-file answer.txt --json
+py gzcu-thesis-spec/evals/checks/run_eval_check.py header-footer-review --response-file answer.txt --json
 ```
 
 Run the repository self-check against the main skill-facing documents:
 
 ```bash
-py evals/checks/run_eval_check.py --all --repo-self-check
+py gzcu-thesis-spec/evals/checks/run_eval_check.py --all --repo-self-check
 ```
 
 This scans:
@@ -60,7 +60,7 @@ This is intentionally a shallow regression guard. It helps catch obvious drift q
 
 ## Evaluation Boundaries
 
-- `evals/` checks skill wording, default behavior, and compliance framing.
+- `gzcu-thesis-spec/evals/` checks skill wording, default behavior, and compliance framing.
 - `check_docx_baseline.py` checks actual `.docx` structure.
 - figure/table clickable jumps should only be required when the task explicitly asks for them.
 

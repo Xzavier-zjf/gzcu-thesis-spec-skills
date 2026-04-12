@@ -80,25 +80,25 @@ The compliant sample confirms bibliography jumping as baseline behavior. It does
 ### Repository Structure
 
 ```text
-evals/
-├── README.md
-├── checks/
-│   └── README.md
-├── cases/
-│   ├── toc-request.md
-│   ├── header-footer-review.md
-│   ├── bibliography-crossref.md
-│   ├── optional-figure-table-jumps.md
-│   └── software-thesis-6chapter-default.md
-└── expected/
-    ├── toc-request.checklist.md
-    ├── header-footer-review.checklist.md
-    ├── bibliography-crossref.checklist.md
-    ├── optional-figure-table-jumps.checklist.md
-    └── software-thesis-6chapter-default.checklist.md
-
 gzcu-thesis-spec/
 ├── SKILL.md
+├── evals/
+│   ├── README.md
+│   ├── checks/
+│   │   ├── README.md
+│   │   └── run_eval_check.py
+│   ├── cases/
+│   │   ├── toc-request.md
+│   │   ├── header-footer-review.md
+│   │   ├── bibliography-crossref.md
+│   │   ├── optional-figure-table-jumps.md
+│   │   └── software-thesis-6chapter-default.md
+│   └── expected/
+│       ├── toc-request.checklist.md
+│       ├── header-footer-review.checklist.md
+│       ├── bibliography-crossref.checklist.md
+│       ├── optional-figure-table-jumps.checklist.md
+│       └── software-thesis-6chapter-default.checklist.md
 ├── references/
 │   ├── content-and-structure.md
 │   ├── layout-and-word-rules.md
@@ -128,7 +128,7 @@ gzcu-thesis-spec/
 
 ### Lightweight Evals
 
-This repository now includes a small `evals/` directory so the skill can be regression-checked against the submission-ready GZCU baseline.
+This repository now includes a small `gzcu-thesis-spec/evals/` directory so the skill can be regression-checked against the submission-ready GZCU baseline.
 
 These evals are meant to catch drift in:
 
@@ -137,12 +137,12 @@ These evals are meant to catch drift in:
 - baseline bibliography jumping expectations
 - the boundary between hard requirements and optional final-docx enhancements
 
-They do not replace `gzcu-thesis-spec/scripts/check_docx_baseline.py`. That script checks real `.docx` structure, while `evals/` checks the skill's documented and prompted behavior.
+They do not replace `gzcu-thesis-spec/scripts/check_docx_baseline.py`. That script checks real `.docx` structure, while `gzcu-thesis-spec/evals/` checks the skill's documented and prompted behavior.
 
 For a lightweight semi-automated pass, run:
 
 ```bash
-py evals/checks/run_eval_check.py toc-request --response-file answer.txt
+py gzcu-thesis-spec/evals/checks/run_eval_check.py toc-request --response-file answer.txt
 ```
 
 ### Why There Is No Top-Level `assets/`
@@ -155,7 +155,7 @@ Reusable asset support already exists via:
 - `gzcu-thesis-spec/references/asset-assembly-schema.md`
 - `gzcu-thesis-spec/references/asset-manifest-field-guide.md`
 
-If future script regression needs fixed screenshots or figure fixtures, prefer `evals/fixtures/` or `examples/assets/` over a broad catch-all `assets/` directory.
+If future script regression needs fixed screenshots or figure fixtures, prefer `gzcu-thesis-spec/evals/fixtures/` or `examples/assets/` over a broad catch-all `assets/` directory.
 
 ### Typical Workflow
 
@@ -278,25 +278,25 @@ MIT License. See [LICENSE](LICENSE).
 ### 项目结构
 
 ```text
-evals/
-├── README.md
-├── checks/
-│   └── README.md
-├── cases/
-│   ├── toc-request.md
-│   ├── header-footer-review.md
-│   ├── bibliography-crossref.md
-│   ├── optional-figure-table-jumps.md
-│   └── software-thesis-6chapter-default.md
-└── expected/
-    ├── toc-request.checklist.md
-    ├── header-footer-review.checklist.md
-    ├── bibliography-crossref.checklist.md
-    ├── optional-figure-table-jumps.checklist.md
-    └── software-thesis-6chapter-default.checklist.md
-
 gzcu-thesis-spec/
 ├── SKILL.md
+├── evals/
+│   ├── README.md
+│   ├── checks/
+│   │   ├── README.md
+│   │   └── run_eval_check.py
+│   ├── cases/
+│   │   ├── toc-request.md
+│   │   ├── header-footer-review.md
+│   │   ├── bibliography-crossref.md
+│   │   ├── optional-figure-table-jumps.md
+│   │   └── software-thesis-6chapter-default.md
+│   └── expected/
+│       ├── toc-request.checklist.md
+│       ├── header-footer-review.checklist.md
+│       ├── bibliography-crossref.checklist.md
+│       ├── optional-figure-table-jumps.checklist.md
+│       └── software-thesis-6chapter-default.checklist.md
 ├── references/
 │   ├── content-and-structure.md
 │   ├── layout-and-word-rules.md
@@ -326,7 +326,7 @@ gzcu-thesis-spec/
 
 ### 轻量评测目录
 
-仓库现在补充了一个最小 `evals/` 目录，用来回归检查 Skill 是否仍然对齐已经验证可提交的 GZCU 终稿基线。
+仓库现在补充了一个最小 `gzcu-thesis-spec/evals/` 目录，用来回归检查 Skill 是否仍然对齐已经验证可提交的 GZCU 终稿基线。
 
 它主要防止这些内容回退：
 
@@ -335,15 +335,15 @@ gzcu-thesis-spec/
 - 把“正文引用跳转参考文献”降级成可有可无
 - 把“图表点击跳转”错误抬升为提交硬要求
 
-`evals/` 不替代 `gzcu-thesis-spec/scripts/check_docx_baseline.py`。
+`gzcu-thesis-spec/evals/` 不替代 `gzcu-thesis-spec/scripts/check_docx_baseline.py`。
 
 - `check_docx_baseline.py` 负责真实 `.docx` 结构检查
-- `evals/` 负责 Skill 话术、默认行为和审查口径检查
+- `gzcu-thesis-spec/evals/` 负责 Skill 话术、默认行为和审查口径检查
 
 如果要做一个轻量的半自动检查，可以运行：
 
 ```bash
-py evals/checks/run_eval_check.py toc-request --response-file answer.txt
+py gzcu-thesis-spec/evals/checks/run_eval_check.py toc-request --response-file answer.txt
 ```
 
 ### 为什么暂不添加顶层 assets
@@ -356,7 +356,7 @@ py evals/checks/run_eval_check.py toc-request --response-file answer.txt
 - 已经有 `gzcu-thesis-spec/references/asset-assembly-schema.md`
 - 已经有 `gzcu-thesis-spec/references/asset-manifest-field-guide.md`
 
-如果未来真的需要固定截图、插图或脚本回归输入，更适合新增 `evals/fixtures/` 或 `examples/assets/`，而不是先放一个职责模糊的通用 `assets/` 目录。
+如果未来真的需要固定截图、插图或脚本回归输入，更适合新增 `gzcu-thesis-spec/evals/fixtures/` 或 `examples/assets/`，而不是先放一个职责模糊的通用 `assets/` 目录。
 
 ### 安装要求
 

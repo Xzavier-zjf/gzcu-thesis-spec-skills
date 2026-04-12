@@ -9,14 +9,15 @@ from pathlib import Path
 from typing import Iterable
 
 
-ROOT = Path(__file__).resolve().parents[2]
-EVALS_DIR = ROOT / "evals"
+REPO_ROOT = Path(__file__).resolve().parents[3]
+SKILL_ROOT = Path(__file__).resolve().parents[2]
+EVALS_DIR = SKILL_ROOT / "evals"
 CASES_DIR = EVALS_DIR / "cases"
 EXPECTED_DIR = EVALS_DIR / "expected"
 REPO_SELF_CHECK_TARGETS = (
-    ROOT / "README.md",
-    ROOT / "gzcu-thesis-spec" / "SKILL.md",
-    ROOT / "使用指南.md",
+    REPO_ROOT / "README.md",
+    SKILL_ROOT / "SKILL.md",
+    REPO_ROOT / "使用指南.md",
 )
 
 
@@ -218,7 +219,7 @@ def resolve_case_names(args: argparse.Namespace) -> list[str]:
 
 def resolve_targets(args: argparse.Namespace) -> list[tuple[str, str]]:
     if args.repo_self_check:
-        return [(str(path.relative_to(ROOT)), load_text(path)) for path in REPO_SELF_CHECK_TARGETS]
+        return [(str(path.relative_to(REPO_ROOT)), load_text(path)) for path in REPO_SELF_CHECK_TARGETS]
     return list(iter_targets(args))
 
 

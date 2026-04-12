@@ -18,7 +18,7 @@ Its purpose is not to grade generic thesis writing quality. It exists to catch d
 
 That script checks real `.docx` structure and XML-level evidence.
 
-This `evals/` directory checks the skill's stated behavior, output expectations, and review language so the documentation and prompts do not drift back to the old template assumptions.
+This `gzcu-thesis-spec/evals/` directory checks the skill's stated behavior, output expectations, and review language so the documentation and prompts do not drift back to the old template assumptions.
 
 ## Directory Layout
 
@@ -38,7 +38,7 @@ A case passes when the output or document under review clearly hits all checklis
 For quick smoke checks, you can run:
 
 ```bash
-py evals/checks/run_eval_check.py toc-request --response-file answer.txt
+py gzcu-thesis-spec/evals/checks/run_eval_check.py toc-request --response-file answer.txt
 ```
 
 The checker is intentionally lightweight. It is designed to catch obvious regressions in wording and default behavior, not to replace expert review.
@@ -53,4 +53,4 @@ Reasons:
 - the asset manifest template already exists in `gzcu-thesis-spec/templates/asset-manifest.template.json`
 - no fixed image fixtures are currently required to verify the new submission baseline
 
-If future regressions require fixed screenshots or figures for script testing, prefer `evals/fixtures/` over a broad catch-all `assets/` directory.
+If future regressions require fixed screenshots or figures for script testing, prefer `gzcu-thesis-spec/evals/fixtures/` over a broad catch-all `assets/` directory.
