@@ -1,162 +1,117 @@
 # Layout and Word Rules
 
-Use this file when the task involves Word layout, final DOCX preparation, or format review.
+Use this file when the task involves Word layout, format review, or final manuscript guidance.
 
-This file is calibrated against a real Guangzhou City University of Technology submission-ready `.docx`. When the school rule text is generic but the compliant template is more specific, prefer the template-compatible implementation below.
+Evidence priority:
+
+1. school format document,
+2. submitted sample `.docx` baseline.
 
 ## 1. Activation boundary
 
-- The cover page and the second explanation page are fixed school template pages.
-- Do not change their fonts, sizes, spacing, headers, footers, or page numbers.
-- Apply the following layout rules starting from the Chinese abstract page.
+- The cover page and school declaration pages should follow the school template.
+- Apply the main formatting rules starting from the Chinese abstract page.
 
-## 2. Default section model
+## 2. School hard rules
 
-Use the compliant manuscript's 4-section structure as the default Word implementation:
+### Abstract pages
 
-1. cover page + explanation page
-2. Chinese abstract + English abstract
-3. TOC
-4. main body through acknowledgements
+- Chinese abstract title uses centered bold heading style.
+- Chinese abstract body uses `小四` `宋体`.
+- English abstract uses `Times New Roman`.
+- Line spacing is fixed at `20 磅`.
+- Chinese and English abstracts should each occupy one page.
 
-Default behavior by section:
+### TOC
 
-- Section 1: no headers, no page numbers.
-- Section 2: no headers, Roman page numbers starting from `I`.
-- Section 3: no headers, Roman numbering continues in the section model but page numbers stay hidden.
-- Section 4: even/odd headers enabled, Arabic page numbers starting from `1`.
-
-Do not assume `结论`、`参考文献`、`致谢` must each become a separate header/page-number section. In the compliant template they continue inside the same main-body header/page-number scheme and only require correct chapter starts.
-
-## 3. Headers
-
-### Where headers appear
-
-- Hide headers on the cover page, explanation page, Chinese abstract, English abstract, and TOC.
-- Show headers from Chapter 1 through `致谢`.
-
-### How headers are controlled
-
-- Use Word section breaks, not one global header for the entire document.
-- Enable odd/even headers in the main-body section.
-- Keep the header bottom border at `1.5 磅`.
-- Hidden-header sections may still contain empty header definitions; this is acceptable if the rendered page shows no visible header.
-
-### Header text
-
-- Even-page header: `广州城市理工学院本科毕业设计（论文）`
-- Odd-page header: use Word `STYLEREF` to pull the current level-1 heading text.
-
-Do not hard-code separate odd-page headers such as `结 论`、`参考文献`、`致 谢` unless the user is intentionally deviating from the compliant template. The default should follow the current level-1 title automatically.
-
-## 4. Page numbers
-
-- Chinese and English abstracts use uppercase Roman numerals and start from `I`.
-- TOC belongs to its own section; keep its page numbers hidden.
-- The main body starts a new Arabic numbering scheme from Chapter 1 and begins at `1`.
-- `结论`、`参考文献`、`致谢` continue the main body's Arabic numbering and do not restart.
-- Hide page numbers on the cover page, explanation page, and TOC.
-
-## 5. Chapter opening rules
-
-- Every chapter starts on a new page.
-- Every chapter must start on an odd-numbered page.
-- If the next chapter would start on an even-numbered page, insert a blank transition page before it.
-- Apply the same odd-page rule to `结论`、`参考文献`、`致谢`.
-
-## 6. Fonts, styles, and spacing
-
-### Global font principle
-
-- All English and all numbers use `Times New Roman`.
-- Chinese body text uses `宋体`.
-- When a compliant template already defines built-in Word heading styles, follow the template style implementation first rather than re-imposing an abstract font description paragraph by paragraph.
-
-### Template-compatible heading behavior
-
-- Level 1 headings are centered and treated as the chapter-level style that also drives odd-page `STYLEREF` headers.
-- Level 2 and Level 3 headings should stay on the page with following content.
-- If the template heading styles differ slightly from a simplified textual rule but match the compliant submission template, prefer the template styles.
+- TOC title should be centered.
+- TOC entries use school-specified heading hierarchy.
+- TOC should reflect the actual chapter structure.
 
 ### Body text
 
-- body text size: `小四` (`12.0 pt`)
-- Chinese body text font: `宋体`
-- English and numeric text font: `Times New Roman`
-- fixed line spacing: `20 磅`
-- first-line indent: `2` Chinese characters
+- Level-1 heading: `三号` `宋体` bold, centered, with one blank line above and below.
+- Level-2 heading: `小三` `宋体` bold, left aligned, with one blank line above and below.
+- Level-3 heading: `四号` `宋体` bold, left aligned, no blank line after the heading line.
+- Body text: `小四` `宋体`.
+- Line spacing: fixed `20 磅`.
+- First-line indent: `2` Chinese characters.
+- English and numbers use `Times New Roman`.
+
+### Figures and tables
+
+- Figure and table text use `五号` `宋体`.
+- Figure title below figure.
+- Table title above table.
+- Figures and tables must be numbered by chapter.
+- Do not split a figure and its caption across pages.
+- Tables should not use left and right outer vertical borders.
 
 ### References and acknowledgements
 
-- section title style follows the template's level-1 heading behavior
-- reference entries and acknowledgement body text should remain visually compliant with the school template
-- if a local template already defines the final appearance, keep it rather than reformatting manually paragraph by paragraph
+- References title and acknowledgements title follow the chapter-title style.
+- References body uses `五号` `宋体`, fixed `20 磅` line spacing.
+- Acknowledgements body uses `五号` `宋体`, fixed `20 磅` line spacing.
 
-## 7. Widow/orphan and heading placement
+## 3. Sample-based baseline suggestions
 
-- Do not allow any heading to appear as the last line on a page.
-- Keep headings with the following content.
-- Adjust page breaks or pagination to preserve odd-page chapter starts without creating awkward heading or figure splits.
+The submitted sample `.docx` supports the following as a stable reference implementation:
 
-## 8. Figures and tables
+- a `4`-section model,
+- Roman numerals for abstract pages,
+- TOC in its own section,
+- Arabic numbering starting from Chapter 1,
+- odd/even header behavior in the main body section,
+- a software-engineering 6-chapter reference structure.
 
-- Figure titles go below the figure.
-- Table titles go above the table.
-- Figure titles, table titles, and table text use `宋体五号` unless the compliant template already enforces an equivalent caption/table style.
-- Number figures and tables by chapter, such as `图1-1` and `表1-1`.
-- Body references to figures and tables must stay at body-text size `小四` (`12.0 pt`) and must not inherit caption size.
-- Every figure and table must be cited in the body.
-- Treat the figure block as one unit: lead-in sentence, picture paragraph, caption paragraph, and follow-up analysis paragraph should stay contiguous and readable.
-- The paragraph that contains the inserted figure must use `1.5` line spacing.
-- Check and normalize the spacing before and after the figure block so the figure is not visually stuck to the body text or split awkwardly.
-- Tables should be compatible with the compliant template's no-left/right-outer-border style.
-- If a table spans pages, repeat the table header and append `（续）` to the table number on the continued page.
-- If the repository template or script uses a custom table style such as `论文格式`, keep it compatible with this no-left/right-outer-border presentation instead of forcing a generic full-grid style.
+These are reference-baseline suggestions, not automatic school hard rules.
 
-### Figure/table cross-references
+## 4. Section and page-number guidance
 
-- Clickable figure/table cross-references are recommended enhancements for final `.docx` delivery, not the default baseline compliance threshold.
-- Do not mark a thesis non-compliant only because figure/table references remain plain text, unless the user explicitly requires clickable figure/table jumping in the final manuscript.
-- When figure/table cross-references are built, keep them on the body-text baseline and at body-text size `小四` (`12.0 pt`).
+When the user needs Word guidance close to the submitted sample, a practical reference model is:
 
-## 9. Code and diagrams
+1. cover + declaration pages,
+2. Chinese abstract + English abstract,
+3. TOC,
+4. main body through acknowledgements.
 
-- Do not paste long code blocks into the body.
-- If code must be shown, use code screenshots with a white background only.
-- Flowcharts must have arrows.
-- ER diagram relationship lines must not have arrows.
+Recommended interpretation:
 
-## 10. Reference citations and cross-references
+- section 1: no visible headers or page numbers,
+- section 2: Roman numbering,
+- section 3: separate TOC section,
+- section 4: Arabic numbering starting from Chapter 1.
 
-- Clickable body-to-reference Word cross-references are part of the compliant-template baseline for final `.docx` delivery.
-- Prefer Word cross-references over plain-text citation numbers in the final `.docx`.
-- Body citations should point to the matching bibliography item so `Ctrl + 点击` jumps to the reference entry.
-- Reference items should be bookmarkable as `gzcu_ref_n` in order of the final bibliography list.
-- Build or refresh clickable reference cross-references only in the main body.
-- Do not insert reference cross-references into the abstract, any `本章小结`, or the conclusion.
-- If the working draft still contains plain-text citation numbers, convert them during final Word processing rather than leaving them as-is.
-- Bibliography cross-references must remain superscript after all field refreshes.
+## 5. Chapter opening guidance
 
-## 11. Word implementation checklist
+- Every chapter should start on a new page.
+- In final Word layout, odd-page chapter starts are recommended to match the submitted sample baseline.
+- If pagination changes after edits, odd-page starts must be checked manually in Word.
 
-When producing a final DOCX plan or editing a Word file, verify:
+## 6. Header guidance
 
-- sections match the 4-part template-compatible model,
-- abstract section shows Roman numerals starting from `I`,
-- TOC is in its own section and shows no visible headers or page numbers,
-- main body starts Arabic page numbering from Chapter 1,
-- `结论`、`参考文献`、`致谢` continue Arabic numbering without restart,
-- even/odd headers are enabled only in the main-body section,
-- even-page header is `广州城市理工学院本科毕业设计（论文）`,
-- odd-page header follows the current level-1 heading through `STYLEREF`,
-- TOC is generated by Word and includes 3 heading levels,
-- each chapter starts on an odd page,
-- required blank transition pages exist where needed,
-- heading styles stay compatible with the compliant template,
-- figures, tables, and captions use the required placement and numbering,
-- body citations are Word cross-references when final clickable reference jumping is required,
-- bibliography cross-references still display as superscript after updates,
-- figure/table cross-references are only required when the user explicitly wants clickable figure/table jumping,
-- any figure/table cross-references still display at body-text size `小四` (`12.0 pt`),
-- inserted picture paragraphs use `1.5` line spacing,
-- figure blocks have normalized before/after spacing.
+The submitted sample shows an odd/even header mechanism in the main body:
+
+- even-page header fixed as `广州城市理工学院本科毕业设计（论文）`
+- odd-page header follows the current chapter heading
+
+In the sample, Word `STYLEREF` is one observed way to implement the odd-page header. Treat it as a reference implementation, not as the only legal method.
+
+## 7. What should not be defaulted
+
+- Do not default to clickable bibliography cross-references.
+- Do not default to clickable figure or table cross-references.
+- Do not default to screenshot-evidence workflows, asset assembly, or diagram-generation workflows.
+- Do not present sample-based Word implementation details as school hard rules unless the school document also confirms them.
+
+## 8. Manual Word checks
+
+Always call out items that need manual confirmation:
+
+- actual page occupancy after final pagination,
+- odd-page chapter starts,
+- TOC refresh,
+- Roman and Arabic numbering display,
+- header visibility on abstract and TOC pages,
+- figure-caption and table-caption pagination,
+- consistency between body formatting and school rules.

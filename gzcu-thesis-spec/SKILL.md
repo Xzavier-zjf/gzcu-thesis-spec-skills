@@ -1,150 +1,86 @@
 ---
 name: gzcu-thesis-spec
-description: School-specific thesis writing, formatting, and compliance workflow for Guangzhou City University of Technology undergraduate graduation theses. Use when Codex must write sections, review an existing draft, fix citation order, check chapter structure, or produce Word-ready guidance against the Guangzhou City University of Technology rules, especially for requests such as "根据学校要求写论文", "按广州城市理工学院格式写毕业论文", "检查论文是否符合学校规范", "调整页眉页码/参考文献/摘要格式", or "按学校模板做终稿".
+description: School-specific thesis writing, formatting, and compliance workflow for Guangzhou City University of Technology undergraduate graduation theses. Use when Codex must explain school rules, draft thesis sections, review an existing draft, or provide Word-oriented formatting guidance aligned first to the school format document and secondarily to a submitted sample docx baseline.
 ---
 
 # GZCU Thesis Spec
 
-Use this skill to apply Guangzhou City University of Technology undergraduate thesis rules as hard constraints, not soft style suggestions.
+Use this skill to apply Guangzhou City University of Technology undergraduate thesis rules with the correct evidence order:
 
-For `.docx` editing, section breaks, headers, footers, page numbering, TOC refresh, figure/table placement, and final Word inspection, also use `$doc`.
-For thesis diagrams such as architecture figures, ER diagrams, flowcharts, and research workflow figures, also use `$drawio`.
-For browser-based evidence collection such as page screenshots, UI flow verification, and visible runtime proof from the real system, also use `$playwright-cli`.
-For batch asset insertion, figure-paragraph spacing normalization, and clickable reference cross-references inside Word, use this skill's local `scripts/` helpers together with `$doc`. Figure/table clickable cross-references are optional final-docx enhancements unless the user explicitly requests them.
-This skill relies on short skill-name resolution and is compatible with Codex or Claude Code environments that have the referenced skills installed. It does not depend on machine-specific absolute skill paths.
+1. school format document first,
+2. submitted sample `.docx` second.
 
-This skill is school-specific and should override generic thesis-generation behavior whenever the school rules are stricter or more explicit.
+This skill is for school-rule interpretation, thesis drafting constraints, compliance review, and Word-format guidance. It is not a thesis production pipeline.
 
-## Quick Loading Guide
+## Load Only What You Need
 
-Read only what the task needs:
-
-- Load [references/content-and-structure.md](references/content-and-structure.md) when writing or revising chapter content, abstracts, conclusion, acknowledgements, reference usage, chapter summaries, or section completeness.
-- Load [references/layout-and-word-rules.md](references/layout-and-word-rules.md) when the task involves Word layout, headers, footers, page numbers, section breaks, odd-page chapter starts, figure/table layout, fonts, spacing, or final manuscript formatting.
-- Load [references/compliance-checklist.md](references/compliance-checklist.md) when reviewing an existing thesis, preparing a final delivery checklist, or reporting unresolved risks and manual follow-ups.
-- Load [references/submission-template-baseline.md](references/submission-template-baseline.md) when the task must align to the compliant submission-ready `.docx` rather than relying only on generic school-rule summaries.
-- Load [references/review-severity-policy.md](references/review-severity-policy.md) when the task is a thesis review and the user needs a stable distinction between blocking issues and optional enhancements.
-- Load [references/output-blueprint.md](references/output-blueprint.md) when the user wants a stable output template for abstracts, TOC, chapter drafts, review reports, or final delivery packages.
-- Load [references/docx-review-playbook.md](references/docx-review-playbook.md) when the user provides a real `.docx` and wants template-aligned TOC planning, header/page-number review, or bibliography cross-reference handling.
-- Load [references/prompt-library.md](references/prompt-library.md) when the user wants ready-to-paste prompts such as abstract generation, citation checking, format review, or Word finalization requests.
-- Load [references/software-engineering-prompt-pack.md](references/software-engineering-prompt-pack.md) when the thesis is for a software engineering project and the user wants a Guangzhou City University of Technology oriented prompt pack by chapter or task.
-- Load [references/project-evidence-intake.md](references/project-evidence-intake.md) when the user needs a structured checklist to collect real project material before asking AI to write the thesis.
-- Load [references/review-report-template.md](references/review-report-template.md) when the user wants a repeatable standard report format for thesis compliance reviews across multiple versions.
-- Load [references/first-use-guide.md](references/first-use-guide.md) when the user is using this skill for the first time and needs a quick-start guide plus recommended calling examples.
-- Load [references/example-call-card.md](references/example-call-card.md) when the user wants a one-page quick reference with the 5 most common calling patterns.
-- Load [references/skill-integration.md](references/skill-integration.md) when the thesis task needs diagrams, browser screenshots, runtime evidence, or final Word document production using `$drawio`, `$playwright-cli`, and `$doc` together.
-- Load [references/thesis-production-pipeline.md](references/thesis-production-pipeline.md) when the user wants a fixed end-to-end workflow from project evidence intake to final Word submission.
-- Load [references/asset-assembly-schema.md](references/asset-assembly-schema.md) when the task needs a manifest for bulk insertion of Draw.io figures, UI screenshots, or code screenshots into a `.docx`.
-- Load [references/asset-manifest-field-guide.md](references/asset-manifest-field-guide.md) when the user needs a field-by-field guide for filling the asset manifest template correctly and avoiding common insertion failures.
-- Load [references/script-usage.md](references/script-usage.md) when the task needs concrete script commands for asset assembly, figure-paragraph spacing normalization, or Word reference cross-reference construction.
+- Load [references/content-and-structure.md](references/content-and-structure.md) when drafting or revising abstracts, chapter structures, chapter content, conclusion, references, or acknowledgements.
+- Load [references/layout-and-word-rules.md](references/layout-and-word-rules.md) when the task involves Word layout, headers, footers, page numbers, chapter starts, fonts, spacing, figures, tables, or final manuscript formatting.
+- Load [references/compliance-checklist.md](references/compliance-checklist.md) when reviewing an existing thesis or preparing a final compliance checklist.
+- Load [references/submission-template-baseline.md](references/submission-template-baseline.md) only when a submitted sample `.docx` is relevant as a reference baseline.
 
 ## Default Workflow
 
-### 1. Build the compliance matrix first
+### 1. Build the school-rule matrix first
 
-Extract the school rules and compliant-template behaviors that apply to the current task before writing anything. Track at least:
+Before writing or reviewing, identify:
 
-- required sections and forbidden sections,
-- length and chapter-page constraints,
-- citation and bibliography constraints,
-- Word layout constraints,
-- figure/table/code-display constraints,
-- manual-review items that AI cannot fully guarantee.
+- which requirements come directly from the school format document,
+- which suggestions come only from the submitted sample `.docx`,
+- which items still require manual Word confirmation.
 
-Treat the cover page and the second explanation page as locked template pages. Do not propose edits there. Apply the school formatting rules starting from the Chinese abstract page, and prefer the compliant template's 4-section Word model:
+Always present the task as:
 
-- cover + explanation page,
-- Chinese abstract + English abstract,
-- TOC,
-- main body through acknowledgements.
+1. school-rule matrix,
+2. current thesis adaptation points,
+3. requested chapter content or formatting advice.
 
-When the user wants a software-engineering thesis structure, default to the submission-compatible 6-chapter model:
+### 2. Keep the evidence boundary explicit
 
-- Chapter 1 Introduction / 第一章 绪论
-- Chapter 2 Related Technology and Theoretical Basis / 第二章 相关技术与理论基础
-- Chapter 3 System Requirements Analysis / 第三章 系统需求分析
-- Chapter 4 Overall System Design / 第四章 系统总体设计
-- Chapter 5 Detailed Design and Implementation / 第五章 系统详细设计与实现
-- Chapter 6 System Testing and Deployment / 第六章 系统测试与部署
+- Treat the school `.doc` as the primary source of truth.
+- Treat the submitted `.docx` as a reference baseline, not as an automatic hard rule.
+- Do not turn one sample implementation detail into a universal school requirement unless the school document also supports it.
 
-Keep `本章小结` in each body chapter, and do not force deployment into a separate standalone body chapter.
+### 3. Choose one task mode
 
-For Word layout review and implementation, keep the compliant sample's baseline details explicit:
+- Rule explanation mode: explain the school requirements and their applicability.
+- Chapter drafting mode: draft a chapter against the rule matrix.
+- Review mode: list compliance problems first, then manual review items.
+- Word guidance mode: provide formatting guidance and distinguish hard rules from sample-based suggestions.
 
-- abstract pages use Roman numerals,
-- the TOC stays in its own section with hidden page numbers,
--正文 starts Arabic numbering from Chapter 1 page `1`,
-- the even-page header is fixed as `广州城市理工学院本科毕业设计（论文）`,
-- the odd-page header follows the current level-1 heading via `STYLEREF`,
-- conclusion, references, and acknowledgements continue under the same odd/even header mechanism instead of separate dedicated header sections.
+## Hard Output Rules
 
-### 2. Ground the thesis in project evidence
+- Do not default to screenshot-evidence workflows.
+- Do not default to Draw.io or browser-automation workflows.
+- Do not default to asset assembly or Word automation enhancements.
+- Do not default to clickable bibliography, figure, or table cross-references.
+- Do not present the submitted sample `.docx` as higher priority than the school format document.
 
-Before drafting, collect evidence from the real project:
+## Content Defaults
 
-- system goal and scenario,
-- actual modules and business flow,
-- real tech stack and deployment path,
-- real database, APIs, tests, screenshots, and diagrams,
-- real constraints, defects, and future work.
+When the task is a software-engineering thesis and the user has not provided a newer mandatory structure, a 6-chapter structure may be suggested as a reference default. It must still be framed as a sample-compatible structure, not the only legal structure.
 
-Do not invent modules, metrics, tests, or deployment facts to satisfy the chapter structure.
+When the task is Word formatting, prioritize:
 
-When the thesis needs evidence from a running UI or browser workflow, use `$playwright-cli` to capture screenshots, verify flows, and collect observable runtime proof instead of describing the interface from memory.
+- abstract and keyword rules,
+- heading hierarchy,
+- body fonts and spacing,
+- figure/table placement and numbering,
+- references formatting,
+- conclusion and acknowledgements formatting,
+- chapter page-break and odd-page-start recommendations.
 
-When the thesis needs architecture diagrams, ER diagrams, flowcharts, or paper figures, use `$drawio` instead of ad hoc ASCII diagrams or low-quality screenshots.
+## Final Response Rules
 
-When the final deliverable is a `.docx`, use `$doc` for layout-sensitive editing and visual verification.
+Prefer this order:
 
-### 3. Choose the task mode
+1. school-rule matrix,
+2. thesis adaptation points,
+3. requested output,
+4. manual checks.
 
-Pick one mode and stay consistent:
+When reviewing an existing thesis, report findings first and label whether each issue is:
 
-- Constraint mode: output the rule matrix and task applicability first.
-- Chapter generation mode: write a requested chapter or section against the matrix.
-- Review mode: inspect an existing thesis and list violations first, ordered by severity.
-- Review mode should separate baseline compliance findings from optional final-docx enhancements whenever the compliant submission baseline does not prove the enhancement is mandatory.
-- In review mode, treat figure/table numbering and in-text references as baseline hard requirements, but keep clickable figure jumps and clickable table jumps as optional enhancements unless explicitly requested.
-- Word implementation mode: give concrete Word-oriented instructions for section breaks, headers, page numbers, TOC, figures, tables, references, odd-page chapter starts, and when needed optional figure/table caption cross-references.
-- Asset assembly mode: assemble Draw.io figures, Playwright screenshots, and white-background code screenshots into the thesis via `scripts/assemble_thesis_assets.py`, then normalize figure-block spacing via `scripts/normalize_figure_paragraphs.py`.
-- Cross-reference mode: by default convert plain-text body citations into Word cross-references via `scripts/build_reference_crossrefs.py` so `Ctrl + 点击` jumps to the matching bibliography item. Only convert body figure/table references into clickable caption cross-references when the user explicitly wants clickable figure/table jumping in the final `.docx`.
-- Bibliography cross-reference mode should keep the verified baseline wording explicit: `build_reference_crossrefs.py` may rebuild body citations against `gzcu_ref_n` bookmarks, while abstract, chapter summaries, and conclusion stay outside that rebuild scope.
-
-### 4. Enforce the hard bans
-
-Never do these unless the user explicitly overrides the school rules:
-
-- cite references in the abstract, chapter summaries, or conclusion,
-- use first-person narrative outside acknowledgements,
-- write colloquial body text,
-- paste long raw code blocks into the body,
-- omit chapter summaries,
-- ignore odd-page chapter starts and required blank transition pages,
-- ignore Word section separation for headers and page numbers,
-- let figure/table numbering exist without in-text references,
-- leave inserted figure blocks without normalized picture-paragraph spacing,
-- keep plain-text reference numbers in the body when the user explicitly wants clickable Word cross-references,
-- keep plain-text reference numbers in the body when the final `.docx` should support clickable reference jumping,
-- let bibliography cross-references lose their superscript formatting after figure or table cross-reference processing,
-- leave journal `[J]` or monograph `[M]` references without page ranges,
-- rewrite the cover page or school statement page.
-
-### 5. End every delivery with a compliance audit
-
-Before finishing, report:
-
-- what rules were satisfied,
-- what risks remain,
-- what must still be checked manually in Word,
-- what placeholders still need real project evidence.
-
-## Output Rules
-
-Prefer this order when responding:
-
-1. assumptions,
-2. compliance-focused output,
-3. placeholders or manual replacements,
-4. final checklist.
-
-When reviewing an existing thesis, report findings first and tie each finding to a school rule instead of a generic style preference.
+- a school hard-rule issue,
+- a sample-baseline suggestion,
+- or a manual Word confirmation item.
